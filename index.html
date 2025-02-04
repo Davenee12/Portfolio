@@ -63,6 +63,7 @@
             border-radius: 10px;
             padding: 1rem;
             transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
         }
         .project-card:hover {
             transform: translateY(-10px);
@@ -78,6 +79,8 @@
         iframe {
             border: none;
             border-radius: 10px;
+            width: 100%;
+            max-width: 1024px;
         }
         footer {
             background: #800000;
@@ -117,28 +120,44 @@
     <section id="projects">
         <h2 class="section-title">Projects</h2>
         <div class="projects">
-            <div class="project-card">
-                <h3><a href="#">Student Achievement Dashboard</a></h3>
+            <div class="project-card" onclick="toggleEmbed('student-achievement')">
+                <h3><a href="#">Student Achievement</a></h3>
                 <p>Monitors key academic metrics, including retention rates, exam pass rates, and graduation rates.</p>
             </div>
-            <div class="project-card">
-                <h3><a href="#">Trends In Enrollment</a></h3>
-                <p>Analyzes enrollment trends with demographic and geographic insights.</p>
+            <div id="student-achievement" class="embed-container" style="display:none;">
+                <iframe title="Student Achievement Visualization Power BI" height="804" src="https://app.powerbi.com/view?r=eyJrIjoiNjk3ZDgzOTUtMjRlMC00ZjhmLTg3ODctYTQ1NzlhNTM3ODA4IiwidCI6IjRlOTE3NDQ4LWQ3ZmEtNDQ3ZC1hYjE5LTAzNzBiNGIyZGE5ZiIsImMiOjN9&pageName=d88a7f5710eaced7adc2" frameborder="0" allowFullScreen="true"></iframe>
             </div>
-            <div class="project-card">
+
+            <div class="project-card" onclick="toggleEmbed('fact-book')">
                 <h3><a href="#">Fact Book</a></h3>
                 <p>A comprehensive resource for university statistics, from enrollment data to financial information.</p>
             </div>
-            <div class="project-card">
+            <div id="fact-book" class="embed-container" style="display:none;">
+                <iframe title="SWAU Fact Book Visualization Power BI" height="804" src="https://app.powerbi.com/view?r=eyJrIjoiN2JiOGE3MTMtMWM0My00ZDJhLWE3ZTUtNzk0NTExYmM3MWE3IiwidCI6IjRlOTE3NDQ4LWQ3ZmEtNDQ3ZC1hYjE5LTAzNzBiNGIyZGE5ZiIsImMiOjN9&pageName=ac77ce2fc7f987bc31d9" frameborder="0" allowFullScreen="true"></iframe>
+            </div>
+
+            <div class="project-card" onclick="toggleEmbed('senior-exit-survey')">
                 <h3><a href="#">Senior Exit Survey</a></h3>
                 <p>Visualizes graduating seniors' feedback to improve student experiences.</p>
             </div>
+            <div id="senior-exit-survey" class="embed-container" style="display:none;">
+                <iframe title="Graduating Senior Survey Exit Visualization Power BI" height="804" src="https://app.powerbi.com/view?r=eyJrIjoiZGQ1ZmFhNTgtZThhZC00MDE4LWExNjYtMWVmZjgzODdlMzIzIiwidCI6IjRlOTE3NDQ4LWQ3ZmEtNDQ3ZC1hYjE5LTAzNzBiNGIyZGE5ZiIsImMiOjN9&pageName=12802e64dc661fdc3a6b" frameborder="0" allowFullScreen="true"></iframe>
+            </div>
         </div>
     </section>
+
+    <script>
+        function toggleEmbed(id) {
+            const element = document.getElementById(id);
+            element.style.display = (element.style.display === 'none' || element.style.display === '') ? 'block' : 'none';
+        }
+    </script>
+
     <section id="miro-portfolio">
         <h2 class="section-title">My Miro Board</h2>
         <iframe src="https://miro.com/app/live-embed/uXjVKjvaoGM=/?embedMode=view_only_without_ui" width="100%" height="600"></iframe>
     </section>
+
     <section id="contact">
         <h2 class="section-title">Contact</h2>
         <div class="contact">
