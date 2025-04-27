@@ -42,11 +42,31 @@
         .link:hover {
             color: teal;
         }
-        .dashboards {
-            display: flex;
+        .accordion {
+            background-color: #ffcc00;
+            color: black;
+            cursor: pointer;
+            padding: 15px;
+            width: 100%;
+            border: none;
+            text-align: left;
+            outline: none;
+            font-size: 18px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            transition: 0.4s;
+        }
+        .active, .accordion:hover {
+            background-color: #e6b800;
+        }
+        .panel {
+            padding: 0 18px;
+            display: none;
             flex-wrap: wrap;
             gap: 15px;
+            overflow: hidden;
             justify-content: center;
+            margin-top: 10px;
         }
         .dashboard-card {
             background-color: #ffcc00;
@@ -55,6 +75,10 @@
             width: 280px;
             text-align: left;
             box-shadow: 2px 2px 10px rgba(0,0,0,0.3);
+            transition: transform 0.3s ease;
+        }
+        .dashboard-card:hover {
+            transform: translateY(-5px);
         }
         .dashboard-card img {
             width: 100%;
@@ -83,62 +107,86 @@
 
         <div class="section">
             <h3>Dashboards</h3>
-            <div class="dashboards">
+
+            <button class="accordion">+ Live Dashboards</button>
+            <div class="panel">
                 <div class="dashboard-card">
                     <img src="https://i.imgur.com/xBRgFZk.jpeg" alt="Fact Book">
                     <h4>Fact Book</h4>
-                    <p>Comprehensive visualization of institutional data using Power BI features.</p>
+                    <p>Comprehensive visualization of institutional data.</p>
                     <a href="https://app.powerbi.com/view?r=eyJrIjoiN2JiOGE3MTMtMWM0My00ZDJhLWE3ZTUtNzk0NTExYmM3MWE3IiwidCI6IjRlOTE3NDQ4LWQ3ZmEtNDQ3ZC1hYjE5LTAzNzBiNGIyZGE5ZiIsImMiOjN9&pageName=ac77ce2fc7f987bc31d9" target="_blank" class="link">View Dashboard</a>
                 </div>
                 <div class="dashboard-card">
                     <img src="https://i.imgur.com/82LOSIJ.jpeg" alt="Student Achievement">
                     <h4>Student Achievement</h4>
-                    <p>Showcases student success metrics with interactive slicers.</p>
+                    <p>Showcases student success metrics.</p>
                     <a href="https://app.powerbi.com/view?r=eyJrIjoiNjk3ZDgzOTUtMjRlMC00ZjhmLTg3ODctYTQ1NzlhNTM3ODA4IiwidCI6IjRlOTE3NDQ4LWQ3ZmEtNDQ3ZC1hYjE5LTAzNzBiNGIyZGE5ZiIsImMiOjN9&pageName=d88a7f5710eaced7adc2" target="_blank" class="link">View Dashboard</a>
                 </div>
                 <div class="dashboard-card">
                     <img src="https://i.imgur.com/Vn3FfzZ.jpeg" alt="Office of Student Success">
                     <h4>Office of Student Success</h4>
-                    <p>Real-time Smartsheet data automation in Power BI for tracking student service engagement.</p>
+                    <p>Real-time Smartsheet automation.</p>
                     <a href="https://app.powerbi.com/view?r=eyJrIjoiYTExMGRiZGEtMTE3Zi00M2RlLTg1YmYtNTk1ZDZlNGEwODk0IiwidCI6IjRlOTE3NDQ4LWQ3ZmEtNDQ3ZC1hYjE5LTAzNzBiNGIyZGE5ZiIsImMiOjN9&pageName=50d4eb355220169c5dd5" target="_blank" class="link">View Dashboard</a>
                 </div>
-                    <div class="dashboard-card">
+                <div class="dashboard-card">
                     <img src="https://i.imgur.com/AyuMOMg.jpeg" alt="STEM Excellence">
-                    <h4>STEM Excellence Dashboard</h4>
-                    <p>A Power BI dashboard designed to visualize key metrics for STEM excellence, providing insights into student performance and engagement.</p>
+                    <h4>STEM Excellence</h4>
+                    <p>Insights into STEM student success.</p>
                     <a href="https://app.powerbi.com/view?r=eyJrIjoiNzIyZjk2YWEtZmI1NC00ZTY1LWE3ZjEtOWY3MWFlYWM1ZWEyIiwidCI6IjRlOTE3NDQ4LWQ3ZmEtNDQ3ZC1hYjE5LTAzNzBiNGIyZGE5ZiIsImMiOjN9&pageName=dfe306a204599a7c125b" target="_blank" class="link">View Dashboard</a>
-                </div>     
+                </div>
                 <div class="dashboard-card">
                     <img src="https://i.imgur.com/ZEs6riH.jpeg" alt="Staff Demographics">
                     <h4>Staff Demographics</h4>
-                    <p>Data visualization of staff demographics at Southwestern Adventist University.</p>
+                    <p>University workforce overview.</p>
                     <a href="https://app.powerbi.com/view?r=eyJrIjoiNDBlZTBmMWUtYWVmMy00NDljLWFjNDktNzA4NmU3Zjc1YjQ0IiwidCI6IjRlOTE3NDQ4LWQ3ZmEtNDQ3ZC1hYjE5LTAzNzBiNGIyZGE5ZiIsImMiOjN9&pageName=c85708cbced2bde33169" target="_blank" class="link">View Dashboard</a>
                 </div>
                 <div class="dashboard-card">
                     <img src="https://i.imgur.com/AvlZSwb.jpeg" alt="Graduating Senior Exit Survey">
                     <h4>Graduating Senior Exit Survey</h4>
-                    <p>Data visualization of insights from the Graduating Senior Exit Survey at Southwestern Adventist University.</p>
+                    <p>Exit survey results visualized.</p>
                     <a href="https://app.powerbi.com/view?r=eyJrIjoiZGQ1ZmFhNTgtZThhZC00MDE4LWExNjYtMWVmZjgzODdlMzIzIiwidCI6IjRlOTE3NDQ4LWQ3ZmEtNDQ3ZC1hYjE5LTAzNzBiNGIyZGE5ZiIsImMiOjN9&pageName=12802e64dc661fdc3a6b" target="_blank" class="link">View Dashboard</a>
                 </div>
+            </div>
+
+            <button class="accordion">+ Demo Dashboards</button>
+            <div class="panel">
                 <div class="dashboard-card">
-                    <img src="https://i.imgur.com/fSOVjQn.jpeg" alt="Demo Dashboard">
-                    <h4>Demo Dashboard - "James University - Student Enrollment"</h4>
-                    <p>This dashboard demonstrates how I used AI-generated student records to create a star schema data model to provide insights into enrollment trends, demographics, and retention rates across multiple academic years.</p>
+                    <img src="https://i.imgur.com/fSOVjQn.jpeg" alt="Demo Enrollment">
+                    <h4>Demo - James University Enrollment</h4>
+                    <p>AI-generated records for insights.</p>
                     <a href="https://app.powerbi.com/view?r=eyJrIjoiY2Q3MDdmZGQtNzYwZC00YzdmLWJmNTAtMDQ2ZGMwNThhNDNjIiwidCI6IjRlOTE3NDQ4LWQ3ZmEtNDQ3ZC1hYjE5LTAzNzBiNGIyZGE5ZiIsImMiOjN9&pageName=3d941ab58e95b78b7c2e" target="_blank" class="link">View Dashboard</a>
                 </div>
                 <div class="dashboard-card">
-                    <img src="https://i.imgur.com/fSOVjQn.jpeg" alt="Demo Dashboard Mockup">
-                    <h4>Demo Dashboard - "Admissions"</h4>
-                    <p>This dashboard visualizes AI-generated admissions data, modeled using a star schema to provide clear and actionable insights into the admissions funnel, application trends, and acceptance rates.</p>
+                    <img src="https://i.imgur.com/fSOVjQn.jpeg" alt="Demo Admissions">
+                    <h4>Demo - Admissions</h4>
+                    <p>Mockup of admission funnel insights.</p>
                     <a href="https://app.powerbi.com/view?r=eyJrIjoiY2YxMGMwMWEtNTM5Ny00YzZiLWE4ZDctYTU0ZWMwYzM0MTcxIiwidCI6IjRlOTE3NDQ4LWQ3ZmEtNDQ3ZC1hYjE5LTAzNzBiNGIyZGE5ZiIsImMiOjN9&pageName=95271860e79dcb0bbed3" target="_blank" class="link">View Dashboard</a>
                 </div>
                 <div class="dashboard-card">
-                    <img src="https://i.imgur.com/RSA8TBj.jpeg" alt="Demo Dashboard Mockup">
-                    <h4>Demo Dashboard - "HR Staff Demographics"</h4>
-                    <p>The HR Staff Demographics dashboard offers a snapshot of a university's workforce, highlighting key metrics like headcount, diversity, education, and employment status with interactive filters for deeper insights.</p>
+                    <img src="https://i.imgur.com/RSA8TBj.jpeg" alt="Demo HR Staff">
+                    <h4>Demo - HR Staff Demographics</h4>
+                    <p>Workforce snapshot mockup.</p>
                     <a href="https://app.powerbi.com/view?r=eyJrIjoiNzc0MjM0OGMtOTNjZi00ZDFhLWE2MDctNzhkYWUwMTQyOWI5IiwidCI6IjRlOTE3NDQ4LWQ3ZmEtNDQ3ZC1hYjE5LTAzNzBiNGIyZGE5ZiIsImMiOjN9&pageName=6e5ffb4e9506e4e622f5" target="_blank" class="link">View Dashboard</a>
+                </div>
+            </div>
         </div>
+
     </div>
+
+    <script>
+        var acc = document.getElementsByClassName("accordion");
+        for (var i = 0; i < acc.length; i++) {
+            acc[i].addEventListener("click", function() {
+                this.classList.toggle("active");
+                var panel = this.nextElementSibling;
+                if (panel.style.display === "flex") {
+                    panel.style.display = "none";
+                } else {
+                    panel.style.display = "flex";
+                }
+            });
+        }
+    </script>
 
 </body>
 </html>
