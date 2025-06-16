@@ -1,285 +1,149 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Davenee James | Power BI Portfolio</title>
-  <style>
-    :root {
-      --bg-color: #1a1a1a;
-      --text-color: white;
-      --accent-color: #ffcc00;
-      --card-bg: #ffcc00;
-      --link-hover: teal;
-      --accordion-bg: black;
-      --accordion-text: white;
-    }
-    [data-theme="light"] {
-      --bg-color: #003366;
-      --text-color: white;
-      --accent-color: #ffffff;
-      --card-bg: #ffffff;
-      --link-hover: #ffcc00;
-      --accordion-bg: #ffffff;
-      --accordion-text: #003366;
-    }
-    body {
-      font-family: monospace;
-      background-color: var(--bg-color);
-      color: var(--text-color);
-      padding: 20px;
-      text-align: center;
-      margin: 0;
-      transition: all 0.4s ease;
-    }
-    .container {
-      max-width: 900px;
-      margin: auto;
-      padding-top: 60px;
-    }
-    .toggle-btn {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      background: none;
-      border: none;
-      font-size: 30px;
-      cursor: pointer;
-      z-index: 1000;
-      color: var(--accent-color);
-      transition: transform 0.3s, color 0.4s;
-    }
-    .toggle-btn:hover {
-      transform: scale(1.2);
-    }
-    .profile-pic {
-      width: 200px;
-      height: 200px;
-      border-radius: 50%;
-      border: 4px solid var(--accent-color);
-      box-shadow: 0px 4px 6px rgba(0,0,0,0.4);
-      margin-top: 10px;
-      transition: transform 0.3s ease;
-    }
-    .profile-pic:hover {
-      transform: scale(1.05);
-    }
-    .section {
-      margin: 20px 0;
-      padding: 15px;
-      background-color: var(--accent-color);
-      color: black;
-      border-radius: 8px;
-      text-align: left;
-    }
-    .section h3 {
-      margin-bottom: 10px;
-    }
-    .link {
-      color: black;
-      font-weight: bold;
-      text-decoration: none;
-      transition: color 0.3s;
-    }
-    .link:hover {
-      color: var(--link-hover);
-    }
-    details summary {
-      background-color: var(--accordion-bg);
-      color: var(--accordion-text);
-      padding: 15px;
-      font-size: 18px;
-      font-weight: bold;
-      border-radius: 8px;
-      margin-bottom: 10px;
-      cursor: pointer;
-      list-style: none;
-      position: relative;
-    }
-    details summary::after {
-      content: "➕";
-      position: absolute;
-      right: 20px;
-      font-size: 20px;
-    }
-    details[open] summary::after {
-      content: "➖";
-    }
-    .panel {
-      padding: 10px 0;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 15px;
-      justify-content: center;
-    }
-    .dashboard-card {
-      background-color: var(--card-bg);
-      padding: 10px;
-      border-radius: 8px;
-      width: 280px;
-      text-align: left;
-      box-shadow: 2px 2px 10px rgba(0,0,0,0.3);
-      transition: transform 0.3s ease, background-color 0.3s;
-    }
-    .dashboard-card:hover {
-      transform: translateY(-5px);
-      background-color: var(--accent-color);
-    }
-    .dashboard-card img {
-      width: 100%;
-      border-radius: 8px;
-    }
-    .contact-item {
-      margin: 10px 0;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-    .contact-item img {
-      width: 20px;
-      height: 20px;
-    }
-    @media (max-width: 600px) {
-      .panel {
-        flex-direction: column;
-        align-items: center;
-      }
-      .dashboard-card {
-        width: 90%;
-      }
-    }
-  </style>
-</head>
-
-<body>
-
-  <button class="toggle-btn" id="theme-toggle" onclick="toggleTheme()">⛅</button>
-
-  <div class="container">
-    <h1>Davenee James | Power BI Portfolio</h1>
-    <img src="https://i.imgur.com/1veEFe5.jpeg" alt="Davenee James" class="profile-pic">
-
-    <div class="section">
-      <h3>About Me</h3>
-      <p>Hello, I’m Davenee James, a dedicated Data Manager at Southwestern Adventist University. I specialize in managing, analyzing, and visualizing institutional data to drive strategic decision-making. I have a strong background in Institutional Research, Power BI dashboard development, and data automation. My passion lies in transforming complex data into accessible insights that empower student success and operational excellence. I am highly skilled in Power BI, SQL, DAX, and Excel, and I thrive on creating solutions that bridge data and innovation across departments.</p>
-    </div>
-
-    <div class="section">
-      <h3>Contact</h3>
-      <div class="contact-item">
-        <img src="https://img.icons8.com/ios-filled/50/000000/new-post.png" alt="Email">
-        <a href="mailto:daveneejames@gmail.com" class="link">daveneejames@gmail.com</a>
-      </div>
-      <div class="contact-item">
-        <img src="https://img.icons8.com/ios-filled/50/000000/resume.png" alt="Resume">
-        <a href="https://acrobat.adobe.com/id/urn:aaid:sc:VA6C2:2510a72a-7a45-45c0-b680-b1b9a9f70106" target="_blank" class="link">Resume</a>
-      </div>
-      <div class="contact-item">
-        <img src="https://img.icons8.com/ios-filled/50/000000/linkedin.png" alt="LinkedIn">
-        <a href="https://www.linkedin.com/in/davenee-james-848171228/" target="_blank" class="link">LinkedIn</a>
-      </div>
-      <div class="contact-item">
-        <img src="https://img.icons8.com/ios-filled/50/000000/worldwide-location.png" alt="Location">
-        <span>Dallas-Fort Worth Metroplex</span>
-      </div>
-    </div>
-
-    <div class="section">
-      <h3>Dashboards</h3>
-            <details>
-        <summary>Live Dashboards</summary>
-        <div class="panel">
-          <div class="dashboard-card">
-            <img src="https://i.imgur.com/At6JQGz.jpeg" alt="Fact Book">
-            <h4>Fact Book</h4>
-            <p>Comprehensive visualization of institutional data.</p>
-            <a href="https://app.powerbi.com/view?r=eyJrIjoiN2JiOGE3MTMtMWM0My00ZDJhLWE3ZTUtNzk0NTExYmM3MWE3IiwidCI6IjRlOTE3NDQ4LWQ3ZmEtNDQ3ZC1hYjE5LTAzNzBiNGIyZGE5ZiIsImMiOjN9&pageName=ac77ce2fc7f987bc31d9" target="_blank" class="link">View Dashboard</a>
-          </div>
-
-          <div class="dashboard-card">
-            <img src="https://i.imgur.com/82LOSIJ.jpeg" alt="Student Achievement">
-            <h4>Student Achievement</h4>
-            <p>Showcases student success metrics.</p>
-            <a href="https://app.powerbi.com/view?r=eyJrIjoiNjk3ZDgzOTUtMjRlMC00ZjhmLTg3ODctYTQ1NzlhNTM3ODA4IiwidCI6IjRlOTE3NDQ4LWQ3ZmEtNDQ3ZC1hYjE5LTAzNzBiNGIyZGE5ZiIsImMiOjN9&pageName=d88a7f5710eaced7adc2" target="_blank" class="link">View Dashboard</a>
-          </div>
-
-          <div class="dashboard-card">
-            <img src="https://i.imgur.com/Vn3FfzZ.jpeg" alt="Office of Student Success">
-            <h4>Office of Student Success</h4>
-            <p>Real-time Smartsheet automation.</p>
-            <a href="https://app.powerbi.com/view?r=eyJrIjoiYTExMGRiZGEtMTE3Zi00M2RlLTg1YmYtNTk1ZDZlNGEwODk0IiwidCI6IjRlOTE3NDQ4LWQ3ZmEtNDQ3ZC1hYjE5LTAzNzBiNGIyZGE5ZiIsImMiOjN9&pageName=50d4eb355220169c5dd5" target="_blank" class="link">View Dashboard</a>
-          </div>
-
-          <div class="dashboard-card">
-            <img src="https://i.imgur.com/AyuMOMg.jpeg" alt="STEM Excellence">
-            <h4>STEM Excellence</h4>
-            <p>Insights into STEM student success.</p>
-            <a href="https://app.powerbi.com/view?r=eyJrIjoiNzIyZjk2YWEtZmI1NC00ZTY1LWE3ZjEtOWY3MWFlYWM1ZWEyIiwidCI6IjRlOTE3NDQ4LWQ3ZmEtNDQ3ZC1hYjE5LTAzNzBiNGIyZGE5ZiIsImMiOjN9&pageName=dfe306a204599a7c125b" target="_blank" class="link">View Dashboard</a>
-          </div>
-
-          <div class="dashboard-card">
-            <img src="https://i.imgur.com/ZEs6riH.jpeg" alt="Staff Demographics">
-            <h4>Staff Demographics</h4>
-            <p>University workforce overview.</p>
-            <a href="https://app.powerbi.com/view?r=eyJrIjoiNDBlZTBmMWUtYWVmMy00NDljLWFjNDktNzA4NmU3Zjc1YjQ0IiwidCI6IjRlOTE3NDQ4LWQ3ZmEtNDQ3ZC1hYjE5LTAzNzBiNGIyZGE5ZiIsImMiOjN9&pageName=c85708cbced2bde33169" target="_blank" class="link">View Dashboard</a>
-          </div>
-
-          <div class="dashboard-card">
-            <img src="https://i.imgur.com/AvlZSwb.jpeg" alt="Graduating Senior Exit Survey">
-            <h4>Graduating Senior Exit Survey</h4>
-            <p>Exit survey results visualized.</p>
-            <a href="https://app.powerbi.com/view?r=eyJrIjoiZGQ1ZmFhNTgtZThhZC00MDE4LWExNjYtMWVmZjgzODdlMzIzIiwidCI6IjRlOTE3NDQ4LWQ3ZmEtNDQ3ZC1hYjE5LTAzNzBiNGIyZGE5ZiIsImMiOjN9&pageName=12802e64dc661fdc3a6b" target="_blank" class="link">View Dashboard</a>
-          </div>
-        </div>
-      </details>
-
-      <details>
-        <summary>Demo Dashboards</summary>
-        <div class="panel">
-          <div class="dashboard-card">
-            <img src="https://i.imgur.com/2Briwop.jpeg" alt="Demo Enrollment">
-            <h4>Demo - Student Enrollment</h4>
-            <p>AI-generated student records for insights.</p>
-            <a href="https://app.powerbi.com/view?r=eyJrIjoiOWY4YzYyMDItNTBmNS00YmE1LTgzMzMtMTEzMmI2ZmQxNjcwIiwidCI6IjRlOTE3NDQ4LWQ3ZmEtNDQ3ZC1hYjE5LTAzNzBiNGIyZGE5ZiIsImMiOjN9&pageName=d4ef2821b00f2105bf3e" target="_blank" class="link">View Dashboard</a>
-          </div>
-
-          <div class="dashboard-card">
-            <img src="https://i.imgur.com/oPSbGSf.jpeg" alt="Demo Admissions">
-            <h4>Demo - Admissions</h4>
-            <p>Mockup of admission funnel insights.</p>
-            <a href="https://app.powerbi.com/view?r=eyJrIjoiOGUxNWUxODUtZGYwMi00ZDEwLWFiNzUtZmIzYTQ5ZDYzNGUzIiwidCI6IjRlOTE3NDQ4LWQ3ZmEtNDQ3ZC1hYjE5LTAzNzBiNGIyZGE5ZiIsImMiOjN9&pageName=ab25c1d3aaba823d737b" target="_blank" class="link">View Dashboard</a>
-          </div>
-
-          <div class="dashboard-card">
-            <img src="https://i.imgur.com/RSA8TBj.jpeg" alt="Demo HR Staff">
-            <h4>Demo - HR Staff Demographics</h4>
-            <p>Workforce snapshot mockup.</p>
-            <a href="https://app.powerbi.com/view?r=eyJrIjoiNzc0MjM0OGMtOTNjZi00ZDFhLWE2MDctNzhkYWUwMTQyOWI5IiwidCI6IjRlOTE3NDQ4LWQ3ZmEtNDQ3ZC1hYjE5LTAzNzBiNGIyZGE5ZiIsImMiOjN9&pageName=6e5ffb4e9506e4e622f5" target="_blank" class="link">View Dashboard</a>
-          </div>
-        </div>
-      </details>
-    </div>
-
-  </div>
-
-  <script>
-    function toggleTheme() {
-      const html = document.documentElement;
-      const toggleIcon = document.getElementById("theme-toggle");
-      if (html.getAttribute("data-theme") === "light") {
-        html.setAttribute("data-theme", "dark");
-        toggleIcon.textContent = "⛅";
-      } else {
-        html.setAttribute("data-theme", "light");
-        toggleIcon.textContent = "🌙";
-      }
-    }
-
-    if (window.matchMedia('(prefers-color-scheme: light)').matches) {
-      document.documentElement.setAttribute('data-theme', 'light');
-      document.getElementById("theme-toggle").textContent = "🌙";
-    }
-  </script>
-
-</body>
-</html>
+diff --git a/index.html b/index.html
+index 592e8325883e57005891cd57d1c39093a6caee72..c0f72e1f93bd1500e090369a3458127bd48b5530 100644
+--- a/index.html
++++ b/index.html
+@@ -150,133 +150,133 @@
+     }
+   </style>
+ </head>
+ 
+ <body>
+ 
+   <button class="toggle-btn" id="theme-toggle" onclick="toggleTheme()">⛅</button>
+ 
+   <div class="container">
+     <h1>Davenee James | Power BI Portfolio</h1>
+     <img src="https://i.imgur.com/1veEFe5.jpeg" alt="Davenee James" class="profile-pic">
+ 
+     <div class="section">
+       <h3>About Me</h3>
+       <p>Hello, I’m Davenee James, a dedicated Data Manager at Southwestern Adventist University. I specialize in managing, analyzing, and visualizing institutional data to drive strategic decision-making. I have a strong background in Institutional Research, Power BI dashboard development, and data automation. My passion lies in transforming complex data into accessible insights that empower student success and operational excellence. I am highly skilled in Power BI, SQL, DAX, and Excel, and I thrive on creating solutions that bridge data and innovation across departments.</p>
+     </div>
+ 
+     <div class="section">
+       <h3>Contact</h3>
+       <div class="contact-item">
+         <img src="https://img.icons8.com/ios-filled/50/000000/new-post.png" alt="Email">
+         <a href="mailto:daveneejames@gmail.com" class="link">daveneejames@gmail.com</a>
+       </div>
+       <div class="contact-item">
+         <img src="https://img.icons8.com/ios-filled/50/000000/resume.png" alt="Resume">
+-        <a href="https://acrobat.adobe.com/id/urn:aaid:sc:VA6C2:2510a72a-7a45-45c0-b680-b1b9a9f70106" target="_blank" class="link">Resume</a>
++        <a href="https://acrobat.adobe.com/id/urn:aaid:sc:VA6C2:2510a72a-7a45-45c0-b680-b1b9a9f70106" target="_blank" rel="noopener noreferrer" class="link">Resume</a>
+       </div>
+       <div class="contact-item">
+         <img src="https://img.icons8.com/ios-filled/50/000000/linkedin.png" alt="LinkedIn">
+-        <a href="https://www.linkedin.com/in/davenee-james-848171228/" target="_blank" class="link">LinkedIn</a>
++        <a href="https://www.linkedin.com/in/davenee-james-848171228/" target="_blank" rel="noopener noreferrer" class="link">LinkedIn</a>
+       </div>
+       <div class="contact-item">
+         <img src="https://img.icons8.com/ios-filled/50/000000/worldwide-location.png" alt="Location">
+         <span>Dallas-Fort Worth Metroplex</span>
+       </div>
+     </div>
+ 
+     <div class="section">
+       <h3>Dashboards</h3>
+             <details>
+         <summary>Live Dashboards</summary>
+         <div class="panel">
+           <div class="dashboard-card">
+             <img src="https://i.imgur.com/At6JQGz.jpeg" alt="Fact Book">
+             <h4>Fact Book</h4>
+             <p>Comprehensive visualization of institutional data.</p>
+-            <a href="https://app.powerbi.com/view?r=eyJrIjoiN2JiOGE3MTMtMWM0My00ZDJhLWE3ZTUtNzk0NTExYmM3MWE3IiwidCI6IjRlOTE3NDQ4LWQ3ZmEtNDQ3ZC1hYjE5LTAzNzBiNGIyZGE5ZiIsImMiOjN9&pageName=ac77ce2fc7f987bc31d9" target="_blank" class="link">View Dashboard</a>
++            <a href="https://app.powerbi.com/view?r=eyJrIjoiN2JiOGE3MTMtMWM0My00ZDJhLWE3ZTUtNzk0NTExYmM3MWE3IiwidCI6IjRlOTE3NDQ4LWQ3ZmEtNDQ3ZC1hYjE5LTAzNzBiNGIyZGE5ZiIsImMiOjN9&pageName=ac77ce2fc7f987bc31d9" target="_blank" rel="noopener noreferrer" class="link">View Dashboard</a>
+           </div>
+ 
+           <div class="dashboard-card">
+             <img src="https://i.imgur.com/82LOSIJ.jpeg" alt="Student Achievement">
+             <h4>Student Achievement</h4>
+             <p>Showcases student success metrics.</p>
+-            <a href="https://app.powerbi.com/view?r=eyJrIjoiNjk3ZDgzOTUtMjRlMC00ZjhmLTg3ODctYTQ1NzlhNTM3ODA4IiwidCI6IjRlOTE3NDQ4LWQ3ZmEtNDQ3ZC1hYjE5LTAzNzBiNGIyZGE5ZiIsImMiOjN9&pageName=d88a7f5710eaced7adc2" target="_blank" class="link">View Dashboard</a>
++            <a href="https://app.powerbi.com/view?r=eyJrIjoiNjk3ZDgzOTUtMjRlMC00ZjhmLTg3ODctYTQ1NzlhNTM3ODA4IiwidCI6IjRlOTE3NDQ4LWQ3ZmEtNDQ3ZC1hYjE5LTAzNzBiNGIyZGE5ZiIsImMiOjN9&pageName=d88a7f5710eaced7adc2" target="_blank" rel="noopener noreferrer" class="link">View Dashboard</a>
+           </div>
+ 
+           <div class="dashboard-card">
+             <img src="https://i.imgur.com/Vn3FfzZ.jpeg" alt="Office of Student Success">
+             <h4>Office of Student Success</h4>
+             <p>Real-time Smartsheet automation.</p>
+-            <a href="https://app.powerbi.com/view?r=eyJrIjoiYTExMGRiZGEtMTE3Zi00M2RlLTg1YmYtNTk1ZDZlNGEwODk0IiwidCI6IjRlOTE3NDQ4LWQ3ZmEtNDQ3ZC1hYjE5LTAzNzBiNGIyZGE5ZiIsImMiOjN9&pageName=50d4eb355220169c5dd5" target="_blank" class="link">View Dashboard</a>
++            <a href="https://app.powerbi.com/view?r=eyJrIjoiYTExMGRiZGEtMTE3Zi00M2RlLTg1YmYtNTk1ZDZlNGEwODk0IiwidCI6IjRlOTE3NDQ4LWQ3ZmEtNDQ3ZC1hYjE5LTAzNzBiNGIyZGE5ZiIsImMiOjN9&pageName=50d4eb355220169c5dd5" target="_blank" rel="noopener noreferrer" class="link">View Dashboard</a>
+           </div>
+ 
+           <div class="dashboard-card">
+             <img src="https://i.imgur.com/AyuMOMg.jpeg" alt="STEM Excellence">
+             <h4>STEM Excellence</h4>
+             <p>Insights into STEM student success.</p>
+-            <a href="https://app.powerbi.com/view?r=eyJrIjoiNzIyZjk2YWEtZmI1NC00ZTY1LWE3ZjEtOWY3MWFlYWM1ZWEyIiwidCI6IjRlOTE3NDQ4LWQ3ZmEtNDQ3ZC1hYjE5LTAzNzBiNGIyZGE5ZiIsImMiOjN9&pageName=dfe306a204599a7c125b" target="_blank" class="link">View Dashboard</a>
++            <a href="https://app.powerbi.com/view?r=eyJrIjoiNzIyZjk2YWEtZmI1NC00ZTY1LWE3ZjEtOWY3MWFlYWM1ZWEyIiwidCI6IjRlOTE3NDQ4LWQ3ZmEtNDQ3ZC1hYjE5LTAzNzBiNGIyZGE5ZiIsImMiOjN9&pageName=dfe306a204599a7c125b" target="_blank" rel="noopener noreferrer" class="link">View Dashboard</a>
+           </div>
+ 
+           <div class="dashboard-card">
+             <img src="https://i.imgur.com/ZEs6riH.jpeg" alt="Staff Demographics">
+             <h4>Staff Demographics</h4>
+             <p>University workforce overview.</p>
+-            <a href="https://app.powerbi.com/view?r=eyJrIjoiNDBlZTBmMWUtYWVmMy00NDljLWFjNDktNzA4NmU3Zjc1YjQ0IiwidCI6IjRlOTE3NDQ4LWQ3ZmEtNDQ3ZC1hYjE5LTAzNzBiNGIyZGE5ZiIsImMiOjN9&pageName=c85708cbced2bde33169" target="_blank" class="link">View Dashboard</a>
++            <a href="https://app.powerbi.com/view?r=eyJrIjoiNDBlZTBmMWUtYWVmMy00NDljLWFjNDktNzA4NmU3Zjc1YjQ0IiwidCI6IjRlOTE3NDQ4LWQ3ZmEtNDQ3ZC1hYjE5LTAzNzBiNGIyZGE5ZiIsImMiOjN9&pageName=c85708cbced2bde33169" target="_blank" rel="noopener noreferrer" class="link">View Dashboard</a>
+           </div>
+ 
+           <div class="dashboard-card">
+             <img src="https://i.imgur.com/AvlZSwb.jpeg" alt="Graduating Senior Exit Survey">
+             <h4>Graduating Senior Exit Survey</h4>
+             <p>Exit survey results visualized.</p>
+-            <a href="https://app.powerbi.com/view?r=eyJrIjoiZGQ1ZmFhNTgtZThhZC00MDE4LWExNjYtMWVmZjgzODdlMzIzIiwidCI6IjRlOTE3NDQ4LWQ3ZmEtNDQ3ZC1hYjE5LTAzNzBiNGIyZGE5ZiIsImMiOjN9&pageName=12802e64dc661fdc3a6b" target="_blank" class="link">View Dashboard</a>
++            <a href="https://app.powerbi.com/view?r=eyJrIjoiZGQ1ZmFhNTgtZThhZC00MDE4LWExNjYtMWVmZjgzODdlMzIzIiwidCI6IjRlOTE3NDQ4LWQ3ZmEtNDQ3ZC1hYjE5LTAzNzBiNGIyZGE5ZiIsImMiOjN9&pageName=12802e64dc661fdc3a6b" target="_blank" rel="noopener noreferrer" class="link">View Dashboard</a>
+           </div>
+         </div>
+       </details>
+ 
+       <details>
+         <summary>Demo Dashboards</summary>
+         <div class="panel">
+           <div class="dashboard-card">
+             <img src="https://i.imgur.com/2Briwop.jpeg" alt="Demo Enrollment">
+             <h4>Demo - Student Enrollment</h4>
+             <p>AI-generated student records for insights.</p>
+-            <a href="https://app.powerbi.com/view?r=eyJrIjoiOWY4YzYyMDItNTBmNS00YmE1LTgzMzMtMTEzMmI2ZmQxNjcwIiwidCI6IjRlOTE3NDQ4LWQ3ZmEtNDQ3ZC1hYjE5LTAzNzBiNGIyZGE5ZiIsImMiOjN9&pageName=d4ef2821b00f2105bf3e" target="_blank" class="link">View Dashboard</a>
++            <a href="https://app.powerbi.com/view?r=eyJrIjoiOWY4YzYyMDItNTBmNS00YmE1LTgzMzMtMTEzMmI2ZmQxNjcwIiwidCI6IjRlOTE3NDQ4LWQ3ZmEtNDQ3ZC1hYjE5LTAzNzBiNGIyZGE5ZiIsImMiOjN9&pageName=d4ef2821b00f2105bf3e" target="_blank" rel="noopener noreferrer" class="link">View Dashboard</a>
+           </div>
+ 
+           <div class="dashboard-card">
+             <img src="https://i.imgur.com/oPSbGSf.jpeg" alt="Demo Admissions">
+             <h4>Demo - Admissions</h4>
+             <p>Mockup of admission funnel insights.</p>
+-            <a href="https://app.powerbi.com/view?r=eyJrIjoiOGUxNWUxODUtZGYwMi00ZDEwLWFiNzUtZmIzYTQ5ZDYzNGUzIiwidCI6IjRlOTE3NDQ4LWQ3ZmEtNDQ3ZC1hYjE5LTAzNzBiNGIyZGE5ZiIsImMiOjN9&pageName=ab25c1d3aaba823d737b" target="_blank" class="link">View Dashboard</a>
++            <a href="https://app.powerbi.com/view?r=eyJrIjoiOGUxNWUxODUtZGYwMi00ZDEwLWFiNzUtZmIzYTQ5ZDYzNGUzIiwidCI6IjRlOTE3NDQ4LWQ3ZmEtNDQ3ZC1hYjE5LTAzNzBiNGIyZGE5ZiIsImMiOjN9&pageName=ab25c1d3aaba823d737b" target="_blank" rel="noopener noreferrer" class="link">View Dashboard</a>
+           </div>
+ 
+           <div class="dashboard-card">
+             <img src="https://i.imgur.com/RSA8TBj.jpeg" alt="Demo HR Staff">
+             <h4>Demo - HR Staff Demographics</h4>
+             <p>Workforce snapshot mockup.</p>
+-            <a href="https://app.powerbi.com/view?r=eyJrIjoiNzc0MjM0OGMtOTNjZi00ZDFhLWE2MDctNzhkYWUwMTQyOWI5IiwidCI6IjRlOTE3NDQ4LWQ3ZmEtNDQ3ZC1hYjE5LTAzNzBiNGIyZGE5ZiIsImMiOjN9&pageName=6e5ffb4e9506e4e622f5" target="_blank" class="link">View Dashboard</a>
++            <a href="https://app.powerbi.com/view?r=eyJrIjoiNzc0MjM0OGMtOTNjZi00ZDFhLWE2MDctNzhkYWUwMTQyOWI5IiwidCI6IjRlOTE3NDQ4LWQ3ZmEtNDQ3ZC1hYjE5LTAzNzBiNGIyZGE5ZiIsImMiOjN9&pageName=6e5ffb4e9506e4e622f5" target="_blank" rel="noopener noreferrer" class="link">View Dashboard</a>
+           </div>
+         </div>
+       </details>
+     </div>
+ 
+   </div>
+ 
+   <script>
+     function toggleTheme() {
+       const html = document.documentElement;
+       const toggleIcon = document.getElementById("theme-toggle");
+       if (html.getAttribute("data-theme") === "light") {
+         html.setAttribute("data-theme", "dark");
+         toggleIcon.textContent = "⛅";
+       } else {
+         html.setAttribute("data-theme", "light");
+         toggleIcon.textContent = "🌙";
+       }
+     }
+ 
+     if (window.matchMedia('(prefers-color-scheme: light)').matches) {
+       document.documentElement.setAttribute('data-theme', 'light');
+       document.getElementById("theme-toggle").textContent = "🌙";
+     }
+   </script>
