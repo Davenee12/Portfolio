@@ -204,8 +204,8 @@
     .code-header { display: flex; justify-content: space-between; align-items: center; padding: 12px 20px; background: rgba(255,255,255,0.02); border-bottom: 1px solid var(--border); }
     .code-title { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--text-muted); }
     .code-lang { font-size: 10px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--accent); padding: 4px 10px; background: rgba(58,143,217,0.1); border: 1px solid rgba(58,143,217,0.3); }
-    .code-block { padding: 20px; overflow-x: auto; max-height: 500px; overflow-y: auto; }
-    .code-block pre { font-family: 'JetBrains Mono', monospace; font-size: 12px; line-height: 1.7; color: #e6edf3; margin: 0; white-space: pre; }
+    .code-block { padding: 20px; overflow-x: auto; max-height: 520px; overflow-y: auto; }
+    .code-block pre { font-family: 'JetBrains Mono', monospace; font-size: 11px; line-height: 1.6; color: #e6edf3; margin: 0; white-space: pre; }
     .code-block .keyword { color: var(--code-keyword); }
     .code-block .function { color: var(--code-function); }
     .code-block .string { color: var(--code-string); }
@@ -354,103 +354,140 @@
 
       <div class="showcase-grid">
         <div class="showcase-content">
-          <h3>FTIC RETENTION ANALYSIS</h3>
+          <h3>FTIC COHORT RETENTION ANALYSIS</h3>
           <p>
             Tracking First-Time-in-College (FTIC) student retention is critical for university accreditation 
-            and strategic planning. I developed a comprehensive SQL solution that tracks cohorts across 
-            multiple years, calculating retention and graduation rates that feed directly into executive dashboards.
+            and strategic planning. I developed a comprehensive SQL view that tracks cohorts across 
+            multiple years, calculating 1-year through 4-year retention rates that feed directly into executive dashboards.
           </p>
           <p>
-            The query handles complex business logic: identifying true first-time students, tracking their 
-            enrollment status across semesters, and calculating year-over-year retention percentages. 
-            This data powers our retention dashboard and feeds into IPEDS federal reporting.
+            The query uses CTEs to first identify students in federal cohort groups (Full-time Fall and Part-time Fall entries), 
+            then tracks their return status across subsequent fall terms. It handles complex business logic including 
+            active credit verification and enrollment status checks, outputting student-level data with demographic 
+            breakdowns for IPEDS federal reporting.
           </p>
 
           <div class="showcase-stats">
             <div class="stat-box">
-              <div class="stat-value">6+</div>
+              <div class="stat-value">4</div>
               <div class="stat-label">Cohort Years</div>
-            </div>
-            <div class="stat-box">
-              <div class="stat-value">1000+</div>
-              <div class="stat-label">Students Tracked</div>
             </div>
             <div class="stat-box">
               <div class="stat-value">4</div>
               <div class="stat-label">Retention Points</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-value">8</div>
+              <div class="stat-label">Cohort Groups</div>
             </div>
           </div>
 
           <div class="tech-tags">
             <span class="tech-tag">PostgreSQL</span>
             <span class="tech-tag">CTEs</span>
-            <span class="tech-tag">Window Functions</span>
+            <span class="tech-tag">CASE Logic</span>
             <span class="tech-tag">Power BI</span>
-            <span class="tech-tag">DAX</span>
+            <span class="tech-tag">IPEDS</span>
           </div>
         </div>
 
         <div class="code-container">
           <div class="code-header">
-            <span class="code-title">retention_cohort_analysis.sql</span>
+            <span class="code-title">vw_cohort_retention_analysis.sql</span>
             <span class="code-lang">PostgreSQL</span>
           </div>
           <div class="code-block">
-            <pre><span class="comment">-- FTIC Retention Cohort Analysis</span>
-<span class="comment">-- Tracks first-time students through their academic journey</span>
+            <pre><span class="comment">-- FTIC Cohort Retention Analysis View</span>
+<span class="comment">-- Tracks student retention across 4 years by federal cohort</span>
 
 <span class="keyword">WITH</span> cohort_base <span class="keyword">AS</span> (
-    <span class="comment">-- Identify FTIC students by their entry term</span>
-    <span class="keyword">SELECT DISTINCT</span>
-        s.student_id,
-        s.entry_term,
-        <span class="function">EXTRACT</span>(<span class="keyword">YEAR FROM</span> s.entry_date) <span class="keyword">AS</span> cohort_year,
-        s.entry_type,
-        s.degree_seeking
-    <span class="keyword">FROM</span> student_enrollment s
-    <span class="keyword">WHERE</span> s.entry_type = <span class="string">'FTIC'</span>
-      <span class="keyword">AND</span> s.degree_seeking = <span class="string">'Y'</span>
-      <span class="keyword">AND</span> s.entry_term <span class="keyword">LIKE</span> <span class="string">'%FA'</span>  <span class="comment">-- Fall cohorts</span>
+  <span class="keyword">SELECT DISTINCT</span>
+    ost.sttr_student <span class="keyword">AS</span> studentid,
+    <span class="function">LEFT</span>(sal.sta_fed_cohort_group, <span class="number">2</span>)::<span class="keyword">integer</span> <span class="keyword">AS</span> cohortterm,
+    pnc.gender,
+    xie.ipeds_ethnicity <span class="keyword">AS</span> raceethnicity,
+    pnc.first_name <span class="keyword">AS</span> firstname,
+    pnc.last_name <span class="keyword">AS</span> lastname
+  <span class="keyword">FROM</span> dbo.ods_student_terms ost
+  <span class="keyword">JOIN</span> dbo.spt_student_acad_levels sal 
+    <span class="keyword">ON</span> sal.sta_student = ost.sttr_student
+  <span class="keyword">JOIN</span> dbo.spt_person_non_corp pnc 
+    <span class="keyword">ON</span> pnc.id = ost.sttr_student
+  <span class="keyword">JOIN</span> dbo.x_ipeds_ethnicity xie 
+    <span class="keyword">ON</span> xie.id = ost.sttr_student
+  <span class="keyword">WHERE</span> sal.sta_fed_cohort_group <span class="keyword">IN</span> (
+    <span class="string">'21FF'</span>, <span class="string">'21FP'</span>, <span class="string">'22FF'</span>, <span class="string">'22FP'</span>,
+    <span class="string">'23FF'</span>, <span class="string">'23FP'</span>, <span class="string">'24FF'</span>, <span class="string">'24FP'</span>
+  )
 ),
 
-enrollment_status <span class="keyword">AS</span> (
-    <span class="comment">-- Track enrollment at each checkpoint</span>
-    <span class="keyword">SELECT</span>
-        c.student_id,
-        c.cohort_year,
-        <span class="function">MAX</span>(<span class="keyword">CASE WHEN</span> e.term_code = c.entry_term 
-            <span class="keyword">THEN</span> <span class="number">1</span> <span class="keyword">ELSE</span> <span class="number">0</span> <span class="keyword">END</span>) <span class="keyword">AS</span> year_1_fall,
-        <span class="function">MAX</span>(<span class="keyword">CASE WHEN</span> e.academic_year = c.cohort_year + <span class="number">1</span>
-            <span class="keyword">AND</span> e.term_type = <span class="string">'FA'</span>
-            <span class="keyword">THEN</span> <span class="number">1</span> <span class="keyword">ELSE</span> <span class="number">0</span> <span class="keyword">END</span>) <span class="keyword">AS</span> year_2_fall,
-        <span class="function">MAX</span>(<span class="keyword">CASE WHEN</span> e.academic_year = c.cohort_year + <span class="number">2</span>
-            <span class="keyword">AND</span> e.term_type = <span class="string">'FA'</span>
-            <span class="keyword">THEN</span> <span class="number">1</span> <span class="keyword">ELSE</span> <span class="number">0</span> <span class="keyword">END</span>) <span class="keyword">AS</span> year_3_fall,
-        <span class="function">MAX</span>(<span class="keyword">CASE WHEN</span> g.graduation_date <span class="keyword">IS NOT NULL</span>
-            <span class="keyword">THEN</span> <span class="number">1</span> <span class="keyword">ELSE</span> <span class="number">0</span> <span class="keyword">END</span>) <span class="keyword">AS</span> graduated
-    <span class="keyword">FROM</span> cohort_base c
-    <span class="keyword">LEFT JOIN</span> enrollment e <span class="keyword">ON</span> c.student_id = e.student_id
-    <span class="keyword">LEFT JOIN</span> graduation g <span class="keyword">ON</span> c.student_id = g.student_id
-    <span class="keyword">GROUP BY</span> c.student_id, c.cohort_year
-),
-
-retention_rates <span class="keyword">AS</span> (
-    <span class="comment">-- Calculate retention percentages by cohort</span>
-    <span class="keyword">SELECT</span>
-        cohort_year,
-        <span class="function">COUNT</span>(*) <span class="keyword">AS</span> cohort_size,
-        <span class="function">ROUND</span>(<span class="number">100.0</span> * <span class="function">SUM</span>(year_2_fall) / 
-            <span class="function">COUNT</span>(*), <span class="number">1</span>) <span class="keyword">AS</span> retention_yr2,
-        <span class="function">ROUND</span>(<span class="number">100.0</span> * <span class="function">SUM</span>(year_3_fall) / 
-            <span class="function">COUNT</span>(*), <span class="number">1</span>) <span class="keyword">AS</span> retention_yr3,
-        <span class="function">ROUND</span>(<span class="number">100.0</span> * <span class="function">SUM</span>(graduated) / 
-            <span class="function">COUNT</span>(*), <span class="number">1</span>) <span class="keyword">AS</span> graduation_rate
-    <span class="keyword">FROM</span> enrollment_status
-    <span class="keyword">GROUP BY</span> cohort_year
-    <span class="keyword">ORDER BY</span> cohort_year <span class="keyword">DESC</span>
+returns_by_term <span class="keyword">AS</span> (
+  <span class="keyword">SELECT</span> sttr_student, sttr_term
+  <span class="keyword">FROM</span> dbo.ods_student_terms
+  <span class="keyword">WHERE</span> sttr_term <span class="keyword">IN</span> (
+    <span class="string">'2022FA'</span>, <span class="string">'2023FA'</span>, <span class="string">'2024FA'</span>, <span class="string">'2025FA'</span>
+  )
+  <span class="keyword">AND</span> sttr_current_status <span class="keyword">IN</span> (<span class="string">'R'</span>, <span class="string">'T'</span>)
+  <span class="keyword">AND</span> x_sttr_active_cred > <span class="number">0</span>
+  <span class="keyword">GROUP BY</span> sttr_student, sttr_term
 )
 
-<span class="keyword">SELECT</span> * <span class="keyword">FROM</span> retention_rates;</pre>
+<span class="keyword">SELECT</span>
+  c.studentid,
+  c.cohortterm,
+  <span class="function">CONCAT</span>(<span class="string">'20'</span>, c.cohortterm, <span class="string">'-'</span>, <span class="string">'20'</span>, c.cohortterm + <span class="number">1</span>) 
+    <span class="keyword">AS</span> academicyear,
+  <span class="function">CONCAT</span>(<span class="string">'Fall 20'</span>, c.cohortterm) <span class="keyword">AS</span> termdescription,
+  c.gender,
+  c.raceethnicity,
+  c.firstname,
+  c.lastname,
+  <span class="comment">-- 1-Year Retention</span>
+  <span class="keyword">CASE</span> c.cohortterm
+    <span class="keyword">WHEN</span> <span class="number">21</span> <span class="keyword">THEN CASE WHEN</span> r22.sttr_student <span class="keyword">IS NOT NULL</span> 
+      <span class="keyword">THEN</span> <span class="number">1</span> <span class="keyword">ELSE</span> <span class="number">0</span> <span class="keyword">END</span>
+    <span class="keyword">WHEN</span> <span class="number">22</span> <span class="keyword">THEN CASE WHEN</span> r23.sttr_student <span class="keyword">IS NOT NULL</span> 
+      <span class="keyword">THEN</span> <span class="number">1</span> <span class="keyword">ELSE</span> <span class="number">0</span> <span class="keyword">END</span>
+    <span class="keyword">WHEN</span> <span class="number">23</span> <span class="keyword">THEN CASE WHEN</span> r24.sttr_student <span class="keyword">IS NOT NULL</span> 
+      <span class="keyword">THEN</span> <span class="number">1</span> <span class="keyword">ELSE</span> <span class="number">0</span> <span class="keyword">END</span>
+    <span class="keyword">WHEN</span> <span class="number">24</span> <span class="keyword">THEN CASE WHEN</span> r25.sttr_student <span class="keyword">IS NOT NULL</span> 
+      <span class="keyword">THEN</span> <span class="number">1</span> <span class="keyword">ELSE</span> <span class="number">0</span> <span class="keyword">END</span>
+  <span class="keyword">END AS</span> oneyearretention,
+  <span class="comment">-- 2-Year Retention</span>
+  <span class="keyword">CASE</span> c.cohortterm
+    <span class="keyword">WHEN</span> <span class="number">21</span> <span class="keyword">THEN CASE WHEN</span> r23.sttr_student <span class="keyword">IS NOT NULL</span> 
+      <span class="keyword">THEN</span> <span class="number">1</span> <span class="keyword">ELSE</span> <span class="number">0</span> <span class="keyword">END</span>
+    <span class="keyword">WHEN</span> <span class="number">22</span> <span class="keyword">THEN CASE WHEN</span> r24.sttr_student <span class="keyword">IS NOT NULL</span> 
+      <span class="keyword">THEN</span> <span class="number">1</span> <span class="keyword">ELSE</span> <span class="number">0</span> <span class="keyword">END</span>
+    <span class="keyword">WHEN</span> <span class="number">23</span> <span class="keyword">THEN CASE WHEN</span> r25.sttr_student <span class="keyword">IS NOT NULL</span> 
+      <span class="keyword">THEN</span> <span class="number">1</span> <span class="keyword">ELSE</span> <span class="number">0</span> <span class="keyword">END</span>
+  <span class="keyword">END AS</span> twoyearretention,
+  <span class="comment">-- 3-Year Retention</span>
+  <span class="keyword">CASE</span> c.cohortterm
+    <span class="keyword">WHEN</span> <span class="number">21</span> <span class="keyword">THEN CASE WHEN</span> r24.sttr_student <span class="keyword">IS NOT NULL</span> 
+      <span class="keyword">THEN</span> <span class="number">1</span> <span class="keyword">ELSE</span> <span class="number">0</span> <span class="keyword">END</span>
+    <span class="keyword">WHEN</span> <span class="number">22</span> <span class="keyword">THEN CASE WHEN</span> r25.sttr_student <span class="keyword">IS NOT NULL</span> 
+      <span class="keyword">THEN</span> <span class="number">1</span> <span class="keyword">ELSE</span> <span class="number">0</span> <span class="keyword">END</span>
+  <span class="keyword">END AS</span> threeyearretention,
+  <span class="comment">-- 4-Year Retention</span>
+  <span class="keyword">CASE WHEN</span> c.cohortterm = <span class="number">21</span> 
+    <span class="keyword">AND</span> r25.sttr_student <span class="keyword">IS NOT NULL</span>
+    <span class="keyword">THEN</span> <span class="number">1</span> <span class="keyword">ELSE</span> <span class="number">0</span> 
+  <span class="keyword">END AS</span> fouryearretention
+<span class="keyword">FROM</span> cohort_base c
+<span class="keyword">LEFT JOIN</span> returns_by_term r22 
+  <span class="keyword">ON</span> r22.sttr_student = c.studentid 
+  <span class="keyword">AND</span> r22.sttr_term = <span class="string">'2022FA'</span>
+<span class="keyword">LEFT JOIN</span> returns_by_term r23 
+  <span class="keyword">ON</span> r23.sttr_student = c.studentid 
+  <span class="keyword">AND</span> r23.sttr_term = <span class="string">'2023FA'</span>
+<span class="keyword">LEFT JOIN</span> returns_by_term r24 
+  <span class="keyword">ON</span> r24.sttr_student = c.studentid 
+  <span class="keyword">AND</span> r24.sttr_term = <span class="string">'2024FA'</span>
+<span class="keyword">LEFT JOIN</span> returns_by_term r25 
+  <span class="keyword">ON</span> r25.sttr_student = c.studentid 
+  <span class="keyword">AND</span> r25.sttr_term = <span class="string">'2025FA'</span>
+<span class="keyword">ORDER BY</span> c.cohortterm, c.lastname, c.firstname;</pre>
           </div>
         </div>
       </div>
@@ -463,22 +500,22 @@ retention_rates <span class="keyword">AS</span> (
           <div class="process-step">
             <span class="step-number">01</span>
             <h4>DATA EXTRACTION</h4>
-            <p>Query student information system to identify FTIC cohorts and enrollment records across terms.</p>
+            <p>Query student information system to identify FTIC cohorts by federal cohort group codes (FF/FP suffixes).</p>
           </div>
           <div class="process-step">
             <span class="step-number">02</span>
             <h4>TRANSFORMATION</h4>
-            <p>Apply business rules to calculate retention checkpoints and handle edge cases like transfers.</p>
+            <p>Apply business rules to verify active enrollment status and credit thresholds at each fall checkpoint.</p>
           </div>
           <div class="process-step">
             <span class="step-number">03</span>
             <h4>MODELING</h4>
-            <p>Build Power BI data model with relationships between cohorts, demographics, and outcomes.</p>
+            <p>Build Power BI data model with relationships between cohorts, demographics, and retention flags.</p>
           </div>
           <div class="process-step">
             <span class="step-number">04</span>
             <h4>VISUALIZATION</h4>
-            <p>Create interactive dashboards with drill-through to individual student details and trends.</p>
+            <p>Create interactive dashboards with drill-through by cohort year, gender, and race/ethnicity.</p>
           </div>
         </div>
       </div>
