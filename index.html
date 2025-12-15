@@ -131,8 +131,8 @@
     .btn-primary:hover { background: #4a9fe9; border-color: #4a9fe9; box-shadow: 0 0 30px var(--accent-glow); }
 
     .profile-card { background: var(--bg-card); border: 1px solid var(--border); padding: 32px; }
-    .profile-header { display: flex; gap: 20px; align-items: center; margin-bottom: 28px; padding-bottom: 28px; border-bottom: 1px solid var(--border); }
-    .profile-avatar { width: 80px; height: 80px; object-fit: cover; filter: grayscale(20%); }
+    .profile-header { display: flex; gap: 24px; align-items: center; margin-bottom: 28px; padding-bottom: 28px; border-bottom: 1px solid var(--border); }
+    .profile-avatar { width: 120px; height: 120px; object-fit: cover; filter: grayscale(20%); }
     .profile-info h3 { font-family: 'Bebas Neue', sans-serif; font-size: 22px; letter-spacing: 1px; margin-bottom: 4px; }
     .profile-info p { font-size: 13px; color: var(--text-dim); line-height: 1.5; }
     .profile-meta { display: flex; flex-direction: column; gap: 16px; }
@@ -199,6 +199,27 @@
     .stat-label { font-size: 11px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--text-dim); margin-top: 4px; }
     .tech-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 24px; }
     .tech-tag { padding: 8px 16px; background: var(--bg-card); border: 1px solid var(--border); font-size: 11px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--text-muted); }
+
+    /* SQL Toggle Styles */
+    .sql-toggle { display: flex; border: 1px solid var(--border); margin-bottom: 32px; width: fit-content; }
+    .sql-toggle button {
+      padding: 14px 28px; background: transparent; border: none; color: var(--text-dim);
+      font-family: 'Barlow', sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 1px;
+      text-transform: uppercase; cursor: pointer; transition: all 0.3s ease; border-right: 1px solid var(--border);
+      position: relative;
+    }
+    .sql-toggle button:last-child { border-right: none; }
+    .sql-toggle button:hover { color: var(--text-muted); background: rgba(255,255,255,0.02); }
+    .sql-toggle button.active { color: var(--text); background: var(--accent); }
+    .sql-toggle button.active::after {
+      content: ''; position: absolute; bottom: -1px; left: 50%; transform: translateX(-50%);
+      width: 0; height: 0; border-left: 6px solid transparent; border-right: 6px solid transparent;
+      border-top: 6px solid var(--accent);
+    }
+
+    .sql-panel { display: none; animation: fadeIn 0.4s ease; }
+    .sql-panel.active { display: block; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
     .code-container { background: var(--bg-code); border: 1px solid var(--border); overflow: hidden; }
     .code-header { display: flex; justify-content: space-between; align-items: center; padding: 12px 20px; background: rgba(255,255,255,0.02); border-bottom: 1px solid var(--border); }
@@ -348,56 +369,63 @@
         <h2 class="section-heading">SQL & DATA ENGINEERING</h2>
         <p class="section-desc">
           Beyond dashboards, I write production SQL that powers institutional analytics. 
-          Here's a look at how I built our student retention tracking system from the ground up.
+          Toggle between examples to see how I build complex queries for different analytical needs.
         </p>
       </div>
 
-      <div class="showcase-grid">
-        <div class="showcase-content">
-          <h3>FTIC COHORT RETENTION ANALYSIS</h3>
-          <p>
-            Tracking First-Time-in-College (FTIC) student retention is critical for university accreditation 
-            and strategic planning. I developed a comprehensive SQL view that tracks cohorts across 
-            multiple years, calculating 1-year through 4-year retention rates that feed directly into executive dashboards.
-          </p>
-          <p>
-            The query uses CTEs to first identify students in federal cohort groups (Full-time Fall and Part-time Fall entries), 
-            then tracks their return status across subsequent fall terms. It handles complex business logic including 
-            active credit verification and enrollment status checks, outputting student-level data with demographic 
-            breakdowns for IPEDS federal reporting.
-          </p>
+      <div class="sql-toggle">
+        <button class="active" data-sql="retention">Cohort Retention</button>
+        <button data-sql="employees">Current Employees</button>
+      </div>
 
-          <div class="showcase-stats">
-            <div class="stat-box">
-              <div class="stat-value">4</div>
-              <div class="stat-label">Cohort Years</div>
+      <!-- RETENTION ANALYSIS PANEL -->
+      <div class="sql-panel active" id="panel-retention">
+        <div class="showcase-grid">
+          <div class="showcase-content">
+            <h3>FTIC COHORT RETENTION ANALYSIS</h3>
+            <p>
+              Tracking First-Time-in-College (FTIC) student retention is critical for university accreditation 
+              and strategic planning. I developed a comprehensive SQL view that tracks cohorts across 
+              multiple years, calculating 1-year through 4-year retention rates that feed directly into executive dashboards.
+            </p>
+            <p>
+              The query uses CTEs to first identify students in federal cohort groups (Full-time Fall and Part-time Fall entries), 
+              then tracks their return status across subsequent fall terms. It handles complex business logic including 
+              active credit verification and enrollment status checks, outputting student-level data with demographic 
+              breakdowns for IPEDS federal reporting.
+            </p>
+
+            <div class="showcase-stats">
+              <div class="stat-box">
+                <div class="stat-value">4</div>
+                <div class="stat-label">Cohort Years</div>
+              </div>
+              <div class="stat-box">
+                <div class="stat-value">4</div>
+                <div class="stat-label">Retention Points</div>
+              </div>
+              <div class="stat-box">
+                <div class="stat-value">8</div>
+                <div class="stat-label">Cohort Groups</div>
+              </div>
             </div>
-            <div class="stat-box">
-              <div class="stat-value">4</div>
-              <div class="stat-label">Retention Points</div>
-            </div>
-            <div class="stat-box">
-              <div class="stat-value">8</div>
-              <div class="stat-label">Cohort Groups</div>
+
+            <div class="tech-tags">
+              <span class="tech-tag">PostgreSQL</span>
+              <span class="tech-tag">CTEs</span>
+              <span class="tech-tag">CASE Logic</span>
+              <span class="tech-tag">Power BI</span>
+              <span class="tech-tag">IPEDS</span>
             </div>
           </div>
 
-          <div class="tech-tags">
-            <span class="tech-tag">PostgreSQL</span>
-            <span class="tech-tag">CTEs</span>
-            <span class="tech-tag">CASE Logic</span>
-            <span class="tech-tag">Power BI</span>
-            <span class="tech-tag">IPEDS</span>
-          </div>
-        </div>
-
-        <div class="code-container">
-          <div class="code-header">
-            <span class="code-title">vw_cohort_retention_analysis.sql</span>
-            <span class="code-lang">PostgreSQL</span>
-          </div>
-          <div class="code-block">
-            <pre><span class="comment">-- FTIC Cohort Retention Analysis View</span>
+          <div class="code-container">
+            <div class="code-header">
+              <span class="code-title">vw_cohort_retention_analysis.sql</span>
+              <span class="code-lang">PostgreSQL</span>
+            </div>
+            <div class="code-block">
+              <pre><span class="comment">-- FTIC Cohort Retention Analysis View</span>
 <span class="comment">-- Tracks student retention across 4 years by federal cohort</span>
 
 <span class="keyword">WITH</span> cohort_base <span class="keyword">AS</span> (
@@ -488,6 +516,220 @@ returns_by_term <span class="keyword">AS</span> (
   <span class="keyword">ON</span> r25.sttr_student = c.studentid 
   <span class="keyword">AND</span> r25.sttr_term = <span class="string">'2025FA'</span>
 <span class="keyword">ORDER BY</span> c.cohortterm, c.lastname, c.firstname;</pre>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CURRENT EMPLOYEES PANEL -->
+      <div class="sql-panel" id="panel-employees">
+        <div class="showcase-grid">
+          <div class="showcase-content">
+            <h3>CURRENT EMPLOYEES ROSTER VIEW</h3>
+            <p>
+              This comprehensive HR analytics view pulls from multiple source tables to create a unified 
+              employee roster with demographics, compensation, and organizational data. It powers our 
+              Staff Demographics dashboard and supports workforce planning initiatives.
+            </p>
+            <p>
+              The query demonstrates advanced SQL techniques including multi-level CTEs for salary retrieval 
+              with fallback logic, extensive CASE statements for job title standardization (80+ position variations 
+              mapped to clean categories), and window functions for deduplication. It handles edge cases 
+              like leading zeros in IDs and multiple employment records per person.
+            </p>
+
+            <div class="showcase-stats">
+              <div class="stat-box">
+                <div class="stat-value">80+</div>
+                <div class="stat-label">Title Mappings</div>
+              </div>
+              <div class="stat-box">
+                <div class="stat-value">6</div>
+                <div class="stat-label">CTEs Used</div>
+              </div>
+              <div class="stat-box">
+                <div class="stat-value">21</div>
+                <div class="stat-label">Output Columns</div>
+              </div>
+            </div>
+
+            <div class="tech-tags">
+              <span class="tech-tag">PostgreSQL</span>
+              <span class="tech-tag">Window Functions</span>
+              <span class="tech-tag">Regex Patterns</span>
+              <span class="tech-tag">COALESCE</span>
+              <span class="tech-tag">HR Analytics</span>
+            </div>
+          </div>
+
+          <div class="code-container">
+            <div class="code-header">
+              <span class="code-title">vw_current_employees.sql</span>
+              <span class="code-lang">PostgreSQL</span>
+            </div>
+            <div class="code-block">
+              <pre><span class="comment">-- Current Employees Roster View</span>
+<span class="comment">-- Comprehensive HR data with salary, demographics, and org structure</span>
+
+<span class="keyword">WITH</span> base <span class="keyword">AS</span> (
+  <span class="keyword">SELECT</span>
+    <span class="function">BTRIM</span>(sp.ppwg_hrp_id::<span class="keyword">text</span>) <span class="keyword">AS</span> key_hrp,
+    sp.ppwg_base_et,
+    sp.ppwg_start_date,
+    sp.ppwg_end_date,
+    sp.ppwg_annualized_amt::<span class="keyword">numeric</span> <span class="keyword">AS</span> annualized_amt
+  <span class="keyword">FROM</span> dbo.spt_perposwg sp
+  <span class="keyword">WHERE</span> sp.ppwg_base_et::<span class="keyword">text</span> = <span class="keyword">ANY</span> (
+    <span class="keyword">ARRAY</span>[<span class="string">'REGU'</span>::<span class="keyword">text</span>, <span class="string">'PARS'</span>::<span class="keyword">text</span>]
+  )
+),
+
+ranked_with_salary <span class="keyword">AS</span> (
+  <span class="keyword">SELECT</span>
+    b.key_hrp,
+    b.ppwg_base_et,
+    b.ppwg_start_date,
+    b.ppwg_end_date,
+    b.annualized_amt,
+    <span class="function">ROW_NUMBER</span>() <span class="keyword">OVER</span> (
+      <span class="keyword">PARTITION BY</span> b.key_hrp
+      <span class="keyword">ORDER BY</span> 
+        (b.ppwg_end_date <span class="keyword">IS NULL</span>) <span class="keyword">DESC</span>,
+        b.ppwg_start_date <span class="keyword">DESC</span>,
+        b.annualized_amt <span class="keyword">DESC</span>
+    ) <span class="keyword">AS</span> rn
+  <span class="keyword">FROM</span> base b
+  <span class="keyword">WHERE</span> b.annualized_amt <span class="keyword">IS NOT NULL</span> 
+    <span class="keyword">AND</span> b.annualized_amt > <span class="number">0</span>::<span class="keyword">numeric</span>
+),
+
+pay_choice <span class="keyword">AS</span> (
+  <span class="keyword">SELECT</span>
+    rws.key_hrp,
+    rws.annualized_amt <span class="keyword">AS</span> salary,
+    rws.ppwg_start_date,
+    rws.ppwg_end_date,
+    <span class="keyword">CASE</span>
+      <span class="keyword">WHEN</span> rws.ppwg_end_date <span class="keyword">IS NULL</span> 
+        <span class="keyword">THEN</span> <span class="string">'open_position'</span>::<span class="keyword">text</span>
+      <span class="keyword">ELSE</span> <span class="string">'latest_with_salary'</span>::<span class="keyword">text</span>
+    <span class="keyword">END AS</span> salary_source
+  <span class="keyword">FROM</span> ranked_with_salary rws
+  <span class="keyword">WHERE</span> rws.rn = <span class="number">1</span>
+),
+
+pay_choice_normalized <span class="keyword">AS</span> (
+  <span class="keyword">SELECT</span>
+    pc.key_hrp,
+    pc.salary,
+    pc.ppwg_start_date,
+    pc.ppwg_end_date,
+    pc.salary_source,
+    <span class="function">LTRIM</span>(pc.key_hrp, <span class="string">'0'</span>::<span class="keyword">text</span>) <span class="keyword">AS</span> key_hrp_no_zeros
+  <span class="keyword">FROM</span> pay_choice pc
+),
+
+ranked_data <span class="keyword">AS</span> (
+  <span class="keyword">SELECT</span>
+    hrper.hrper_id,
+    person.last_name,
+    person.first_name,
+    person.birth_date,
+    hrper.hrp_effect_employ_date <span class="keyword">AS</span> hired_date,
+    hrper.tenure_type_desc,
+    hrper.position_desc,
+    <span class="comment">-- Position standardization (80+ mappings)</span>
+    <span class="keyword">CASE</span>
+      <span class="keyword">WHEN</span> hrper.position_desc::<span class="keyword">text</span> ~~* <span class="string">'%President%'</span>::<span class="keyword">text</span>
+        <span class="keyword">AND</span> hrper.position_desc::<span class="keyword">text</span> !~~* <span class="string">'%VP%'</span>::<span class="keyword">text</span>
+        <span class="keyword">AND</span> hrper.position_desc::<span class="keyword">text</span> !~~* <span class="string">'%Vice%'</span>::<span class="keyword">text</span>
+        <span class="keyword">THEN</span> <span class="string">'President'</span>::<span class="keyword">text</span>
+      <span class="keyword">WHEN</span> hrper.position_desc::<span class="keyword">text</span> ~~* <span class="string">'%VP for Financial Admin%'</span>::<span class="keyword">text</span>
+        <span class="keyword">THEN</span> <span class="string">'Vice President for Financial Administration'</span>::<span class="keyword">text</span>
+      <span class="keyword">WHEN</span> hrper.position_desc::<span class="keyword">text</span> ~* <span class="string">'^Prof[,.]?\s*(Bus|Business)\s*Admin'</span>::<span class="keyword">text</span>
+        <span class="keyword">THEN</span> <span class="string">'Professor of Business Administration'</span>::<span class="keyword">text</span>
+      <span class="comment">-- ... 75+ additional CASE conditions ...</span>
+      <span class="keyword">ELSE</span> <span class="function">INITCAP</span>(hrper.position_desc::<span class="keyword">text</span>)
+    <span class="keyword">END AS</span> position_desc_standardized,
+    hrper.status_desc,
+    <span class="keyword">CASE</span> person.gender
+      <span class="keyword">WHEN</span> <span class="string">'M'</span>::<span class="keyword">text</span> <span class="keyword">THEN</span> <span class="string">'Male'</span>::<span class="keyword">text</span>
+      <span class="keyword">WHEN</span> <span class="string">'F'</span>::<span class="keyword">text</span> <span class="keyword">THEN</span> <span class="string">'Female'</span>::<span class="keyword">text</span>
+      <span class="keyword">ELSE</span> <span class="string">'Not Specified'</span>::<span class="keyword">text</span>
+    <span class="keyword">END AS</span> gender,
+    person.age,
+    <span class="keyword">CASE</span>
+      <span class="keyword">WHEN</span> person.age <span class="keyword">IS NULL OR</span> person.age = <span class="number">0</span> 
+        <span class="keyword">THEN</span> <span class="string">'Unknown'</span>::<span class="keyword">text</span>
+      <span class="keyword">WHEN</span> person.age >= <span class="number">79</span> <span class="keyword">THEN</span> <span class="string">'Silent Generation'</span>::<span class="keyword">text</span>
+      <span class="keyword">WHEN</span> person.age >= <span class="number">60</span> <span class="keyword">THEN</span> <span class="string">'Baby Boomer'</span>::<span class="keyword">text</span>
+      <span class="keyword">WHEN</span> person.age >= <span class="number">44</span> <span class="keyword">THEN</span> <span class="string">'Generation X'</span>::<span class="keyword">text</span>
+      <span class="keyword">WHEN</span> person.age >= <span class="number">28</span> <span class="keyword">THEN</span> <span class="string">'Millennial'</span>::<span class="keyword">text</span>
+      <span class="keyword">WHEN</span> person.age >= <span class="number">12</span> <span class="keyword">THEN</span> <span class="string">'Generation Z'</span>::<span class="keyword">text</span>
+      <span class="keyword">ELSE</span> <span class="string">'Generation Alpha'</span>::<span class="keyword">text</span>
+    <span class="keyword">END AS</span> generation_label,
+    <span class="function">INITCAP</span>(person.ipeds_race_ethnic_desc) <span class="keyword">AS</span> ipeds_ethnicity,
+    <span class="keyword">CASE</span>
+      <span class="keyword">WHEN</span> hrper.position_desc::<span class="keyword">text</span> ~~* <span class="string">'%Adjunct%'</span>::<span class="keyword">text</span> 
+        <span class="keyword">THEN</span> <span class="string">'Faculty'</span>::<span class="keyword">text</span>
+      <span class="keyword">WHEN</span> hrper.position_desc::<span class="keyword">text</span> ~~* <span class="string">'%Prof%'</span>::<span class="keyword">text</span> 
+        <span class="keyword">THEN</span> <span class="string">'Faculty'</span>::<span class="keyword">text</span>
+      <span class="keyword">ELSE</span> <span class="string">'Staff'</span>::<span class="keyword">text</span>
+    <span class="keyword">END AS</span> position_type,
+    <span class="keyword">CASE</span>
+      <span class="keyword">WHEN</span> hrper.position_desc::<span class="keyword">text</span> ~* <span class="string">'(Assistant|Asst\.?)\s*Prof'</span>::<span class="keyword">text</span>
+        <span class="keyword">THEN</span> <span class="string">'Assistant Professor'</span>::<span class="keyword">text</span>
+      <span class="keyword">WHEN</span> hrper.position_desc::<span class="keyword">text</span> ~* <span class="string">'(Associate|Assoc\.?)\s*Prof'</span>::<span class="keyword">text</span>
+        <span class="keyword">THEN</span> <span class="string">'Associate Professor'</span>::<span class="keyword">text</span>
+      <span class="keyword">WHEN</span> hrper.position_desc::<span class="keyword">text</span> ~~* <span class="string">'%Professor%'</span>::<span class="keyword">text</span>
+        <span class="keyword">THEN</span> <span class="string">'Professor'</span>::<span class="keyword">text</span>
+      <span class="keyword">ELSE NULL</span>::<span class="keyword">text</span>
+    <span class="keyword">END AS</span> faculty_rank,
+    d.depts_desc,
+    d.division_desc,
+    perstat.perstat_former_service_years,
+    hrper.hrp_service_years,
+    <span class="function">COALESCE</span>(perstat.perstat_former_service_years, <span class="number">0</span>::<span class="keyword">numeric</span>) 
+      + <span class="function">COALESCE</span>(hrper.hrp_service_years, <span class="number">0</span>::<span class="keyword">numeric</span>) 
+      <span class="keyword">AS</span> total_service_years,
+    pc.salary,
+    pc.salary_source,
+    <span class="function">ROW_NUMBER</span>() <span class="keyword">OVER</span> (
+      <span class="keyword">PARTITION BY</span> hrper.hrper_id
+      <span class="keyword">ORDER BY</span>
+        <span class="keyword">CASE WHEN</span> perstat.perstat_former_service_years <span class="keyword">IS NOT NULL</span>
+          <span class="keyword">THEN</span> <span class="number">0</span> <span class="keyword">ELSE</span> <span class="number">1</span> <span class="keyword">END</span>,
+        perstat.perstat_former_service_years <span class="keyword">DESC NULLS LAST</span>
+    ) <span class="keyword">AS</span> rn
+  <span class="keyword">FROM</span> dbo.ods_hrper hrper
+  <span class="keyword">JOIN</span> dbo.ods_person person 
+    <span class="keyword">ON</span> hrper.hrper_id::<span class="keyword">text</span> = person.id::<span class="keyword">text</span>
+  <span class="keyword">LEFT JOIN</span> dbo.ods_depts d 
+    <span class="keyword">ON</span> d.depts_id::<span class="keyword">text</span> = hrper.hrp_pri_dept_sort::<span class="keyword">text</span>
+  <span class="keyword">LEFT JOIN</span> dbo.spt_perstat perstat 
+    <span class="keyword">ON</span> hrper.hrper_id::<span class="keyword">text</span> = perstat.perstat_hrp_id::<span class="keyword">text</span>
+  <span class="keyword">LEFT JOIN</span> pay_choice_normalized pc 
+    <span class="keyword">ON</span> pc.key_hrp = hrper.hrper_id::<span class="keyword">text</span>
+    <span class="keyword">OR</span> pc.key_hrp_no_zeros = hrper.hrper_id::<span class="keyword">text</span>
+  <span class="keyword">WHERE</span> (hrper.hrp_current_status::<span class="keyword">text</span> <> <span class="keyword">ALL</span> (
+    <span class="keyword">ARRAY</span>[<span class="string">'ST'</span>, <span class="string">'TE'</span>, <span class="string">'TM'</span>]::<span class="keyword">text</span>[]
+  ))
+  <span class="keyword">AND</span> (hrper.hrp_effect_term_date > <span class="function">CURRENT_DATE</span> 
+    <span class="keyword">OR</span> hrper.hrp_effect_term_date <span class="keyword">IS NULL</span>)
+)
+
+<span class="keyword">SELECT</span>
+  hrper_id, last_name, first_name, birth_date,
+  hired_date, gender, tenure_type_desc, age,
+  generation_label, ipeds_ethnicity, position_desc,
+  position_type, faculty_rank, status_desc,
+  perstat_former_service_years, hrp_service_years,
+  depts_desc, division_desc, total_service_years,
+  salary, salary_source
+<span class="keyword">FROM</span> ranked_data
+<span class="keyword">WHERE</span> rn = <span class="number">1</span>
+<span class="keyword">ORDER BY</span> last_name, first_name;</pre>
+            </div>
           </div>
         </div>
       </div>
@@ -605,6 +847,18 @@ returns_by_term <span class="keyword">AS</span> (
     const modalMeta = document.getElementById("modalMeta");
     const modalImg = document.getElementById("modalImg");
     const modalLinks = document.getElementById("modalLinks");
+
+    // SQL Toggle functionality
+    const sqlToggleBtns = document.querySelectorAll(".sql-toggle button");
+    sqlToggleBtns.forEach(btn => {
+      btn.addEventListener("click", () => {
+        sqlToggleBtns.forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        const panelId = btn.dataset.sql;
+        document.querySelectorAll(".sql-panel").forEach(p => p.classList.remove("active"));
+        document.getElementById("panel-" + panelId).classList.add("active");
+      });
+    });
 
     function escapeAttr(str) { return String(str).replace(/"/g, "&quot;"); }
     function matches(d, q) { if (!q) return true; const hay = (d.title + " " + d.desc + " " + d.tags.join(" ")).toLowerCase(); return hay.includes(q.toLowerCase()); }
