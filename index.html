@@ -9,6 +9,48 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
+  <!-- SEO Meta Tags -->
+  <link rel="canonical" href="https://davenee12.github.io/Portfolio/" />
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://davenee12.github.io/Portfolio/" />
+  <meta property="og:title" content="Davenee James | Analytics & Power BI Portfolio" />
+  <meta property="og:description" content="Power BI dashboards, demos, and analytics work by Davenee James. Transform complex data into clear insights." />
+  <meta property="og:image" content="https://i.imgur.com/1veEFe5.jpeg" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:url" content="https://davenee12.github.io/Portfolio/" />
+  <meta name="twitter:title" content="Davenee James | Analytics & Power BI Portfolio" />
+  <meta name="twitter:description" content="Power BI dashboards, demos, and analytics work by Davenee James. Transform complex data into clear insights." />
+  <meta name="twitter:image" content="https://i.imgur.com/1veEFe5.jpeg" />
+
+  <!-- Structured Data (JSON-LD) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Davenee James",
+    "jobTitle": "Data Analyst / BI Developer",
+    "worksFor": {
+      "@type": "Organization",
+      "name": "Southwestern Adventist University"
+    },
+    "url": "https://davenee12.github.io/Portfolio/",
+    "sameAs": [
+      "https://www.linkedin.com/in/davenee-james-848171228/"
+    ],
+    "knowsAbout": ["Power BI", "SQL", "DAX", "Excel", "Data Analytics", "Institutional Research", "People Analytics"],
+    "email": "daveneejames@gmail.com",
+    "alumniOf": "Southwestern Adventist University",
+    "address": {
+      "@type": "PostalAddress",
+      "addressRegion": "Dallas–Fort Worth Metroplex"
+    }
+  }
+  </script>
+
   <style>
     :root {
       --bg-deep: #0a0a0a;
@@ -259,6 +301,34 @@
     .back-to-top { display: flex; align-items: center; gap: 8px; font-size: 11px; font-weight: 500; letter-spacing: 1px; text-transform: uppercase; color: var(--text-dim); cursor: pointer; transition: color 0.3s ease; }
     .back-to-top:hover { color: var(--text); }
 
+    .skip-link {
+      position: absolute;
+      top: -40px;
+      left: 0;
+      background: var(--accent);
+      color: var(--text);
+      padding: 8px 16px;
+      z-index: 10000;
+      font-size: 14px;
+      font-weight: 600;
+      text-decoration: none;
+    }
+    .skip-link:focus {
+      top: 0;
+    }
+
+    .visually-hidden {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      margin: -1px;
+      padding: 0;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
     .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.9); backdrop-filter: blur(10px); display: none; align-items: center; justify-content: center; padding: 40px; z-index: 2000; }
     .modal { width: 100%; max-width: 900px; background: var(--bg-card); border: 1px solid var(--border); }
     .modal-header { display: flex; justify-content: space-between; align-items: center; padding: 20px 24px; border-bottom: 1px solid var(--border); }
@@ -278,6 +348,7 @@
 </head>
 
 <body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
   <header>
     <div class="container header-inner">
       <a href="#" class="logo">
@@ -288,12 +359,13 @@
         <a href="#dashboards">Dashboards</a>
         <a href="#sql">SQL</a>
         <a href="#contact">Contact</a>
-        <a href="https://acrobat.adobe.com/id/urn:aaid:sc:US:28b48e35-1236-413f-8941-edb0e12f46be" target="_blank">Resume</a>
+        <a href="https://acrobat.adobe.com/id/urn:aaid:sc:US:28b48e35-1236-413f-8941-edb0e12f46be" target="_blank" rel="noopener noreferrer">Resume</a>
       </nav>
     </div>
   </header>
 
-  <section class="hero" id="top">
+  <main id="main-content">
+    <section class="hero" id="top">
     <div class="container">
       <div class="hero-content">
         <div class="hero-text">
@@ -311,7 +383,7 @@
 
         <div class="profile-card">
           <div class="profile-header">
-            <img src="https://i.imgur.com/1veEFe5.jpeg" alt="Davenee James" class="profile-avatar">
+            <img src="https://i.imgur.com/1veEFe5.jpeg" alt="Davenee James" class="profile-avatar" width="120" height="120">
             <div class="profile-info">
               <h3>DAVENEE JAMES</h3>
               <p>Data Analyst / BI Developer<br/>Southwestern Adventist University</p>
@@ -345,18 +417,21 @@
 
       <div class="controls">
         <div class="search-box">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <circle cx="11" cy="11" r="8"/>
             <path d="m21 21-4.35-4.35"/>
           </svg>
-          <input type="search" id="search" placeholder="Search dashboards..." />
+          <label for="search" class="visually-hidden">Search dashboards</label>
+          <input type="search" id="search" placeholder="Search dashboards..." aria-label="Search dashboards" />
         </div>
-        <div class="filter-tabs">
-          <button class="active" data-filter="all">All</button>
-          <button data-filter="live">Live</button>
-          <button data-filter="demo">Demo</button>
+        <div class="filter-tabs" role="tablist" aria-label="Filter dashboards by type">
+          <button class="active" data-filter="all" role="tab" aria-selected="true" aria-controls="grid">All</button>
+          <button data-filter="live" role="tab" aria-selected="false" aria-controls="grid">Live</button>
+          <button data-filter="demo" role="tab" aria-selected="false" aria-controls="grid">Demo</button>
         </div>
       </div>
+
+      <div id="search-status" role="status" aria-live="polite" class="visually-hidden"></div>
 
       <div class="dashboard-grid" id="grid"></div>
     </div>
@@ -782,17 +857,18 @@ ranked_data <span class="keyword">AS</span> (
           <span class="contact-icon">in</span>
           <h4>LINKEDIN</h4>
           <p>Connect for updates, portfolio posts, and analytics content.</p>
-          <a href="https://www.linkedin.com/in/davenee-james-848171228/" target="_blank" class="btn">View Profile</a>
+          <a href="https://www.linkedin.com/in/davenee-james-848171228/" target="_blank" rel="noopener noreferrer" class="btn">View Profile</a>
         </div>
         <div class="contact-card">
           <span class="contact-icon">📄</span>
           <h4>RESUME</h4>
           <p>Full experience, skills, and project background.</p>
-          <a href="https://acrobat.adobe.com/id/urn:aaid:sc:US:28b48e35-1236-413f-8941-edb0e12f46be" target="_blank" class="btn">Download</a>
+          <a href="https://acrobat.adobe.com/id/urn:aaid:sc:US:28b48e35-1236-413f-8941-edb0e12f46be" target="_blank" rel="noopener noreferrer" class="btn">Download</a>
         </div>
       </div>
     </div>
   </section>
+  </main>
 
   <footer>
     <div class="container footer-inner">
@@ -801,7 +877,7 @@ ranked_data <span class="keyword">AS</span> (
         <a href="#dashboards">Dashboards</a>
         <a href="#sql">SQL</a>
         <a href="#contact">Contact</a>
-        <a href="https://www.linkedin.com/in/davenee-james-848171228/" target="_blank">LinkedIn</a>
+        <a href="https://www.linkedin.com/in/davenee-james-848171228/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
       </div>
       <a href="#top" class="back-to-top">Back to top ↑</a>
     </div>
@@ -860,17 +936,34 @@ ranked_data <span class="keyword">AS</span> (
       });
     });
 
+    // Debounce function for search input
+    function debounce(fn, delay) {
+      let timeout;
+      return function(...args) {
+        clearTimeout(timeout);
+        timeout = setTimeout(() => fn.apply(this, args), delay);
+      };
+    }
+
     function escapeAttr(str) { return String(str).replace(/"/g, "&quot;"); }
     function matches(d, q) { if (!q) return true; const hay = (d.title + " " + d.desc + " " + d.tags.join(" ")).toLowerCase(); return hay.includes(q.toLowerCase()); }
     function filterData() { const q = search.value.trim(); return dashboards.filter(d => activeFilter === "all" || d.type === activeFilter).filter(d => matches(d, q)); }
 
     function cardHTML(d) {
       const typeTag = d.type === "live" ? "Live" : "Demo";
-      return '<article class="dashboard-card" data-type="' + d.type + '"><div class="card-image"><img loading="lazy" src="' + d.img + '" alt="' + d.title + '"><div class="card-tags"><span class="tag ' + (d.type === 'live' ? 'tag-live' : '') + '">' + typeTag + '</span>' + d.tags.slice(0, 1).map(t => '<span class="tag">' + t + '</span>').join('') + '</div></div><div class="card-body"><h4>' + d.title + '</h4><p>' + d.desc + '</p><div class="card-actions"><a class="card-btn card-btn-primary" href="' + d.link + '" target="_blank">Open</a><button class="card-btn" data-preview="1" data-title="' + escapeAttr(d.title) + '" data-type="' + d.type + '" data-img="' + escapeAttr(d.img) + '" data-link="' + escapeAttr(d.link) + '">Preview</button></div></div></article>';
+      return '<article class="dashboard-card" data-type="' + d.type + '"><div class="card-image"><img loading="lazy" src="' + d.img + '" alt="' + d.title + '"><div class="card-tags"><span class="tag ' + (d.type === 'live' ? 'tag-live' : '') + '">' + typeTag + '</span>' + d.tags.slice(0, 1).map(t => '<span class="tag">' + t + '</span>').join('') + '</div></div><div class="card-body"><h4>' + d.title + '</h4><p>' + d.desc + '</p><div class="card-actions"><a class="card-btn card-btn-primary" href="' + d.link + '" target="_blank" rel="noopener noreferrer">Open</a><button class="card-btn" data-preview="1" data-title="' + escapeAttr(d.title) + '" data-type="' + d.type + '" data-img="' + escapeAttr(d.img) + '" data-link="' + escapeAttr(d.link) + '">Preview</button></div></div></article>';
     }
 
     function render() {
       const items = filterData();
+      const count = items.length;
+      
+      // Announce results to screen readers
+      const statusEl = document.getElementById('search-status');
+      if (statusEl) {
+        statusEl.textContent = count + ' dashboard' + (count !== 1 ? 's' : '') + ' found';
+      }
+      
       if (items.length === 0) { grid.innerHTML = '<div class="empty-state"><h4>No Results Found</h4><p>Try a different keyword or reset filters.</p><button class="btn btn-primary" onclick="resetFilters()">Reset</button></div>'; return; }
       grid.innerHTML = items.map(cardHTML).join("");
       grid.querySelectorAll('button[data-preview="1"]').forEach(btn => { btn.addEventListener("click", () => { openModal({ title: btn.dataset.title, type: btn.dataset.type, img: btn.dataset.img, link: btn.dataset.link }); }); });
@@ -880,7 +973,7 @@ ranked_data <span class="keyword">AS</span> (
       modalTitle.textContent = title;
       modalMeta.textContent = (type === "live" ? "Live Dashboard" : "Demo Dashboard") + " • Preview";
       modalImg.src = img;
-      modalLinks.innerHTML = '<a class="btn btn-primary" href="' + link + '" target="_blank">Open in Power BI</a><button class="btn" id="copyLinkBtn">Copy Link</button>';
+      modalLinks.innerHTML = '<a class="btn btn-primary" href="' + link + '" target="_blank" rel="noopener noreferrer">Open in Power BI</a><button class="btn" id="copyLinkBtn">Copy Link</button>';
       modalOverlay.style.display = "flex";
       document.getElementById("copyLinkBtn").addEventListener("click", async () => { try { await navigator.clipboard.writeText(link); document.getElementById("copyLinkBtn").textContent = "Copied ✓"; setTimeout(() => document.getElementById("copyLinkBtn").textContent = "Copy Link", 1200); } catch (e) { document.getElementById("copyLinkBtn").textContent = "Failed"; } });
     }
@@ -891,8 +984,19 @@ ranked_data <span class="keyword">AS</span> (
     modalClose.addEventListener("click", closeModal);
     modalOverlay.addEventListener("click", e => { if (e.target === modalOverlay) closeModal(); });
     document.addEventListener("keydown", e => { if (e.key === "Escape") closeModal(); });
-    filterBtns.forEach(btn => { btn.addEventListener("click", () => { filterBtns.forEach(b => b.classList.remove("active")); btn.classList.add("active"); activeFilter = btn.dataset.filter; render(); }); });
-    search.addEventListener("input", render);
+    filterBtns.forEach(btn => { 
+      btn.addEventListener("click", () => { 
+        filterBtns.forEach(b => {
+          b.classList.remove("active");
+          b.setAttribute('aria-selected', 'false');
+        });
+        btn.classList.add("active"); 
+        btn.setAttribute('aria-selected', 'true');
+        activeFilter = btn.dataset.filter; 
+        render(); 
+      }); 
+    });
+    search.addEventListener("input", debounce(render, 300));
     document.getElementById("year").textContent = new Date().getFullYear();
     render();
   </script>
