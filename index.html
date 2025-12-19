@@ -274,6 +274,44 @@
     .empty-state { grid-column: 1 / -1; padding: 80px 40px; text-align: center; background: var(--bg-card); }
     .empty-state h4 { font-family: 'Bebas Neue', sans-serif; font-size: 24px; letter-spacing: 1px; margin-bottom: 12px; }
     .empty-state p { color: var(--text-dim); margin-bottom: 24px; }
+
+    /* Featured Dashboard Highlight */
+    .featured-highlight { 
+      background: linear-gradient(135deg, rgba(58,143,217,0.15) 0%, rgba(201,162,39,0.08) 100%);
+      border: 1px solid rgba(58,143,217,0.3);
+      padding: 32px;
+      margin-bottom: 40px;
+    }
+    .featured-highlight h3 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 24px;
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      color: var(--accent);
+    }
+    .featured-highlight p {
+      font-size: 15px;
+      color: var(--text-muted);
+      line-height: 1.8;
+      margin-bottom: 12px;
+    }
+    .featured-highlight ul {
+      list-style: none;
+      margin-top: 20px;
+    }
+    .featured-highlight li {
+      font-size: 14px;
+      color: var(--text-muted);
+      padding: 8px 0;
+      padding-left: 20px;
+      position: relative;
+    }
+    .featured-highlight li::before {
+      content: '→';
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+    }
   </style>
 </head>
 
@@ -342,6 +380,9 @@
         <div class="section-title">Portfolio</div>
         <h2 class="section-heading">DASHBOARDS</h2>
       </div>
+
+      <div class="featured-highlight">
+        <h3>🎯 END-TO-END ANALYTICS: FROM RAW DATA TO EXECUTIVE INSIGHTS</h3>
 
       <div class="controls">
         <div class="search-box">
@@ -827,9 +868,9 @@ ranked_data <span class="keyword">AS</span> (
 
   <script>
     const dashboards = [
+      { type: "live", title: "FTIC Retention & Graduation", desc: "End-to-end cohort tracking built from PostgreSQL views. Tracks 1-4 year retention and 4-6 year graduation rates for First-Time-In-College students with demographic breakdowns for IPEDS compliance.", img: "https://i.imgur.com/H0ZCDsO.jpeg", link: "https://app.powerbi.com/view?r=eyJrIjoiODk5ODQ1NzktNTY4Zi00NjhkLTlkNjEtM2ZhOTM4ZjMwMjQzIiwidCI6IjRlOTE3NDQ4LWQ3ZmEtNDQ3ZC1hYjE5LTAzNzBiNGIyZGE5ZiIsImMiOjN9&pageName=2a1bb021fcb7fbe62e5e", tags: ["Retention", "IPEDS"] },
+      { type: "live", title: "Transfer Retention & Graduation", desc: "Comprehensive transfer student analytics powered by custom SQL. Monitors retention patterns and graduation outcomes for transfer cohorts to inform articulation agreements and support services.", img: "https://i.imgur.com/nOPP8U1.jpeg", link: "https://app.powerbi.com/view?r=eyJrIjoiMDllZTQ1YmQtNTQyOS00YThhLTlkMjctMWY3ZGUxMWI4NTg1IiwidCI6IjRlOTE3NDQ4LWQ3ZmEtNDQ3ZC1hYjE5LTAzNzBiNGIyZGE5ZiIsImMiOjN9&pageName=c7c1bdca804e92fb095a", tags: ["Transfer", "Graduation"] },
       { type: "live", title: "Fact Book", desc: "Comprehensive visualization of institutional data.", img: "https://i.imgur.com/At6JQGz.jpeg", link: "https://app.powerbi.com/view?r=eyJrIjoiN2JiOGE3MTMtMWM0My00ZDJhLWE3ZTUtNzk0NTExYmM3MWE3IiwidCI6IjRlOTE3NDQ4LWQ3ZmEtNDQ3ZC1hYjE5LTAzNzBiNGIyZGE5ZiIsImMiOjN9&pageName=ac77ce2fc7f987bc31d9", tags: ["Institutional", "Trends"] },
-      { type: "live", title: "Student Achievement", desc: "Student success metrics and outcomes overview.", img: "https://i.imgur.com/82LOSIJ.jpeg", link: "https://app.powerbi.com/view?r=eyJrIjoiNjk3ZDgzOTUtMjRlMC00ZjhmLTg3ODctYTQ1NzlhNTM3ODA4IiwidCI6IjRlOTE3NDQ4LWQ3ZmEtNDQ3ZC1hYjE5LTAzNzBiNGIyZGE5ZiIsImMiOjN9&pageName=d88a7f5710eaced7adc2", tags: ["Student Success", "KPIs"] },
-      { type: "live", title: "Office of Student Success", desc: "Real-time service tracking powered by Smartsheet.", img: "https://i.imgur.com/Vn3FfzZ.jpeg", link: "https://app.powerbi.com/view?r=eyJrIjoiYTExMGRiZGEtMTE3Zi00M2RlLTg1YmYtNTk1ZDZlNGEwODk0IiwidCI6IjRlOTE3NDQ4LWQ3ZmEtNDQ3ZC1hYjE5LTAzNzBiNGIyZGE5ZiIsImMiOjN9&pageName=50d4eb355220169c5dd5", tags: ["Operations", "Automation"] },
       { type: "live", title: "Staff Demographics", desc: "Workforce composition, representation, and trends.", img: "https://i.imgur.com/ZEs6riH.jpeg", link: "https://app.powerbi.com/view?r=eyJrIjoiZTFkZTZlYzgtNTZkZS00MWEzLThjZTAtOTZhN2ZjNTQ5NjdkIiwidCI6IjRlOTE3NDQ4LWQ3ZmEtNDQ3ZC1hYjE5LTAzNzBiNGIyZGE5ZiIsImMiOjN9&pageName=dd73a8fef780406b2ebf", tags: ["HR", "Demographics"] },
       { type: "demo", title: "Admissions Demo", desc: "Mock admissions funnel insights and conversion.", img: "https://i.imgur.com/oPSbGSf.jpeg", link: "https://app.powerbi.com/view?r=eyJrIjoiOGUxNWUxODUtZGYwMi00ZDEwLWFiNzUtZmIzYTQ5ZDYzNGUzIiwidCI6IjRlOTE3NDQ4LWQ3ZmEtNDQ3ZC1hYjE5LTAzNzBiNGIyZGE5ZiIsImMiOjN9&pageName=ab25c1d3aaba823d737b", tags: ["Admissions", "Funnel"] },
       { type: "demo", title: "HR Demographics Demo", desc: "Workforce snapshot mockup for HR reporting.", img: "https://i.imgur.com/RSA8TBj.jpeg", link: "https://app.powerbi.com/view?r=eyJrIjoiNzc0MjM0OGMtOTNjZi00ZDFhLWE2MDctNzhkYWUwMTQyOWI5IiwidCI6IjRlOTE3NDQ4LWQ3ZmEtNDQ3ZC1hYjE5LTAzNzBiNGIyZGE5ZiIsImMiOjN9&pageName=6e5ffb4e9506e4e622f5", tags: ["HR", "Composition"] },
