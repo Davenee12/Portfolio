@@ -761,6 +761,42 @@
       border-radius: 50%; margin-right: 6px; animation: pulse 2s infinite;
     }
 
+    /* ─── IMPACT STATS STRIP ─── */
+    .impact-stats-section {
+      padding: 56px 0;
+      background: var(--bg-card);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .impact-stats-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 0;
+    }
+    .impact-stat {
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      padding: 24px 20px; text-align: center;
+      border-right: 1px solid var(--border);
+    }
+    .impact-stat:last-child { border-right: none; }
+    .impact-value {
+      font-family: 'Bebas Neue', sans-serif; font-size: clamp(42px, 5vw, 64px);
+      letter-spacing: 2px; color: var(--accent); line-height: 1;
+    }
+    .impact-label {
+      font-size: 11px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase;
+      color: var(--text-muted); margin-top: 8px;
+    }
+    @media (max-width: 768px) {
+      .impact-stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .impact-stat:nth-child(2) { border-right: none; }
+      .impact-stat:nth-child(3) { border-right: 1px solid var(--border); border-top: 1px solid var(--border); }
+      .impact-stat:nth-child(4) { border-right: none; border-top: 1px solid var(--border); }
+    }
+    @media (max-width: 480px) {
+      .impact-stats-grid { grid-template-columns: 1fr; }
+      .impact-stat { border-right: none !important; border-top: 1px solid var(--border); }
+      .impact-stat:first-child { border-top: none; }
+    }
+
     /* ─── PAGE LOAD OVERLAY ─── */
     #page-loader {
       position: fixed; inset: 0; background: var(--bg-deep); z-index: 99999;
@@ -816,7 +852,7 @@
         <a href="#sql"        style="transition-delay:0.22s">SQL</a>
         <a href="#skills"     style="transition-delay:0.26s">Skills</a>
         <a href="#contact"    style="transition-delay:0.29s">Contact</a>
-        <a href="https://acrobat.adobe.com/id/urn:aaid:sc:US:28b48e35-1236-413f-8941-edb0e12f46be" target="_blank" style="transition-delay:0.36s">Resume</a>
+        <a href="Resume_Davenee_James.pdf" target="_blank" style="transition-delay:0.36s">Resume</a>
       </nav>
     </div>
   </header>
@@ -830,11 +866,12 @@
     <div class="container">
       <div class="hero-content">
         <div class="hero-text">
-          <div class="hero-badge" id="hero-badge">Available for Dashboard Builds</div>
+          <div class="hero-badge" id="hero-badge">Open to New Opportunities</div>
           <h1 id="hero-h1">DATA-DRIVEN <span>INSIGHTS</span><br/>FOR INSTITUTIONAL SUCCESS</h1>
           <p class="hero-desc" id="hero-desc">
-            I build Power BI dashboards that transform complex institutional and workforce data into clear,
-            actionable insights. Clean modeling, precise measures, and thoughtful UX designed for decision-makers.
+            Data Analyst &amp; BI Developer with 3+ years in higher education institutional research.
+            I specialize in PostgreSQL, Power BI, and IPEDS compliance reporting — translating complex
+            enterprise data into executive-ready dashboards that drive real decisions.
           </p>
           <div class="hero-actions" id="hero-actions">
             <a href="#dashboards" class="btn btn-primary">Explore Dashboards</a>
@@ -853,17 +890,43 @@
           <div class="profile-meta">
             <div class="meta-item">
               <span class="meta-label">Tools</span>
-              <span class="meta-value">Power BI • SQL • DAX • Excel</span>
+              <span class="meta-value">Power BI • PostgreSQL • DAX • Power Query</span>
             </div>
             <div class="meta-item">
               <span class="meta-label">Focus</span>
-              <span class="meta-value">Institutional Research • People Analytics</span>
+              <span class="meta-value">Institutional Research • IPEDS • People Analytics</span>
             </div>
             <div class="meta-item">
               <span class="meta-label">Location</span>
               <span class="meta-value">Dallas–Fort Worth Metroplex</span>
             </div>
           </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════
+       IMPACT STATS
+  ════════════════════════════════════════════════════ -->
+  <section class="impact-stats-section reveal">
+    <div class="container">
+      <div class="impact-stats-grid">
+        <div class="impact-stat">
+          <span class="impact-value" data-target="10" data-suffix="+">0+</span>
+          <span class="impact-label">Enterprise Dashboards Built</span>
+        </div>
+        <div class="impact-stat">
+          <span class="impact-value" data-target="15" data-suffix="+">0+</span>
+          <span class="impact-label">Departments Served</span>
+        </div>
+        <div class="impact-stat">
+          <span class="impact-value" data-target="300" data-suffix="+">0+</span>
+          <span class="impact-label">DB Tables Queried</span>
+        </div>
+        <div class="impact-stat">
+          <span class="impact-value" data-target="3" data-suffix="+">0+</span>
+          <span class="impact-label">Years in Institutional Research</span>
         </div>
       </div>
     </div>
@@ -1267,6 +1330,22 @@ ranked_data <span class="keyword">AS</span> (
               <div class="skill-bar"><div class="skill-fill" data-width="76"></div></div>
             </div>
           </div>
+
+          <div class="skill-category">
+            <div class="skill-category-label">Tools & Platforms</div>
+            <div class="skill-row">
+              <div class="skill-meta"><span class="skill-name">Power Automate</span><span class="skill-level">Proficient</span></div>
+              <div class="skill-bar"><div class="skill-fill" data-width="78"></div></div>
+            </div>
+            <div class="skill-row">
+              <div class="skill-meta"><span class="skill-name">Tableau</span><span class="skill-level">Proficient</span></div>
+              <div class="skill-bar"><div class="skill-fill" data-width="72"></div></div>
+            </div>
+            <div class="skill-row">
+              <div class="skill-meta"><span class="skill-name">GitHub Version Control</span><span class="skill-level">Proficient</span></div>
+              <div class="skill-bar"><div class="skill-fill" data-width="75"></div></div>
+            </div>
+          </div>
         </div>
 
         <!-- Right: specialty badges -->
@@ -1302,6 +1381,16 @@ ranked_data <span class="keyword">AS</span> (
               <span class="specialty-badge-icon">📋</span>
               <span class="specialty-badge-name">Federal Compliance</span>
               <span class="specialty-badge-desc">IPEDS, Title IV reporting, race/ethnicity classification standards</span>
+            </div>
+            <div class="specialty-badge">
+              <span class="specialty-badge-icon">🏛️</span>
+              <span class="specialty-badge-name">Data Governance</span>
+              <span class="specialty-badge-desc">Naming standards, metric definitions, documentation, lineage &amp; data quality</span>
+            </div>
+            <div class="specialty-badge">
+              <span class="specialty-badge-icon">🏆</span>
+              <span class="specialty-badge-name">PBI Data Analyst Associate</span>
+              <span class="specialty-badge-desc">Microsoft certification in progress — Power BI, DAX, semantic models &amp; service</span>
             </div>
           </div>
         </div>
@@ -1415,29 +1504,29 @@ ranked_data <span class="keyword">AS</span> (
     <div class="container">
       <div class="freelance-inner reveal">
         <div>
-          <div class="freelance-tag">Open to Work</div>
-          <h2 class="freelance-heading">NEED A DASHBOARD<br/>BUILT <span>RIGHT</span>?</h2>
+          <div class="freelance-tag">Open to New Opportunities</div>
+          <h2 class="freelance-heading">LET'S BUILD SOMETHING<br/><span>TOGETHER</span></h2>
           <p class="freelance-body">
-            I take on freelance dashboard and analytics projects for higher education institutions,
-            nonprofits, and small-to-mid-size organizations. Whether you need a one-time reporting
-            solution or ongoing BI support, I bring the same rigorous SQL-to-Power-BI pipeline
-            that drives institutional decisions at the university level.
+            I'm actively seeking full-time Data Analyst or BI Developer roles where I can bring
+            my SQL-to-Power-BI expertise to a new team. With 3+ years driving institutional decisions
+            through data at the university level, I'm ready to tackle complex data challenges and
+            deliver clear, actionable insights for your organization.
           </p>
           <div class="freelance-services">
-            <span class="freelance-service">Custom Power BI Dashboards</span>
-            <span class="freelance-service">SQL View Development</span>
-            <span class="freelance-service">Data Model Design</span>
-            <span class="freelance-service">IPEDS Reporting</span>
-            <span class="freelance-service">Dashboard Audits & Fixes</span>
-            <span class="freelance-service">Training & Handoff</span>
+            <span class="freelance-service">Power BI Development</span>
+            <span class="freelance-service">Institutional Research</span>
+            <span class="freelance-service">Data Engineering</span>
+            <span class="freelance-service">IPEDS Compliance</span>
+            <span class="freelance-service">People Analytics</span>
+            <span class="freelance-service">Data Governance</span>
           </div>
         </div>
         <div class="freelance-cta">
-          <a href="mailto:daveneejames@gmail.com?subject=Freelance%20Dashboard%20Project" class="btn btn-primary" style="white-space:nowrap; font-size:13px; padding:18px 36px;">
-            Start a Project
+          <a href="mailto:daveneejames@gmail.com?subject=Job%20Opportunity" class="btn btn-primary" style="white-space:nowrap; font-size:13px; padding:18px 36px;">
+            Get in Touch
           </a>
           <div class="cta-availability">
-            <span class="cta-dot"></span>Available for new work
+            <span class="cta-dot"></span>Actively interviewing
           </div>
         </div>
       </div>
@@ -1467,7 +1556,7 @@ ranked_data <span class="keyword">AS</span> (
           <span class="contact-icon">📄</span>
           <h4>RESUME</h4>
           <p>Full experience, skills, and project background.</p>
-          <a href="https://acrobat.adobe.com/id/urn:aaid:sc:US:28b48e35-1236-413f-8941-edb0e12f46be" target="_blank" class="btn">Download</a>
+          <a href="Resume_Davenee_James.pdf" target="_blank" class="btn">Download</a>
         </div>
       </div>
     </div>
@@ -1556,7 +1645,7 @@ ranked_data <span class="keyword">AS</span> (
         if (entry.isIntersecting) {
           entry.target.classList.add('visible');
           // Trigger counter animation if stat-box is visible
-          entry.target.querySelectorAll('.stat-value[data-target]').forEach(el => {
+          entry.target.querySelectorAll('.stat-value[data-target], .impact-value[data-target]').forEach(el => {
             animateCounter(el);
           });
           revealObserver.unobserve(entry.target);
@@ -1577,7 +1666,7 @@ ranked_data <span class="keyword">AS</span> (
         }
       });
     }, { threshold: 0.5 });
-    document.querySelectorAll('.stat-value[data-target]').forEach(el => statObserver.observe(el));
+    document.querySelectorAll('.stat-value[data-target], .impact-value[data-target]').forEach(el => statObserver.observe(el));
 
     // ── COUNTER ANIMATION ─────────────────────────────────
     function animateCounter(el) {
