@@ -738,6 +738,77 @@
       font-size: 11px; color: rgba(255,255,255,0.55);
     }
 
+    /* ─── AI-AUGMENTED WORKFLOW ─── */
+    .workflow-section { background: var(--bg); }
+    .workflow-top {
+      display: grid; grid-template-columns: 1.1fr 1fr; gap: 56px; align-items: end;
+      margin-bottom: 48px;
+    }
+    @media (max-width: 900px) { .workflow-top { grid-template-columns: 1fr; gap: 28px; } }
+    .workflow-tag {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 5px 12px; background: rgba(0,117,222,0.07); border: 1px solid rgba(0,117,222,0.15); border-radius: 9999px;
+      font-size: 12px; font-weight: 600; letter-spacing: 0.3px; text-transform: uppercase;
+      color: var(--blue); margin-bottom: 16px;
+    }
+    .workflow-heading {
+      font-size: clamp(28px, 3.6vw, 42px); font-weight: 700;
+      letter-spacing: -1.5px; line-height: 1.1; color: var(--near-black); margin-bottom: 18px;
+    }
+    .workflow-heading em { font-style: normal; color: var(--blue); }
+    .workflow-body { font-size: 16px; color: var(--warm-gray); line-height: 1.75; }
+    .workflow-terminal {
+      background: #1e1e2e; border-radius: 12px; overflow: hidden;
+      box-shadow: var(--shadow-card);
+    }
+    .workflow-terminal-header {
+      display: flex; align-items: center; gap: 8px;
+      padding: 10px 16px; background: rgba(255,255,255,0.06);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .workflow-terminal-header .queryu-editor-dot { width: 10px; height: 10px; border-radius: 50%; }
+    .workflow-terminal-title {
+      margin-left: 8px; font-family: 'JetBrains Mono', monospace;
+      font-size: 11px; color: rgba(255,255,255,0.55);
+    }
+    .workflow-terminal pre {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px; line-height: 1.7; color: #e6edf3;
+      padding: 18px 22px; margin: 0; white-space: pre; overflow-x: auto;
+    }
+    .workflow-terminal .sha { color: #79c0ff; }
+    .workflow-terminal .branch { color: #d2a8ff; }
+    .workflow-terminal .added { color: #4ade80; }
+    .workflow-terminal .dim { color: rgba(255,255,255,0.45); }
+
+    .workflow-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px;
+    }
+    @media (max-width: 960px) { .workflow-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 520px) { .workflow-grid { grid-template-columns: 1fr; } }
+    .workflow-card {
+      background: white; border: 1px solid var(--border); border-radius: 14px;
+      padding: 24px; transition: transform 0.3s var(--ease-smooth), box-shadow 0.3s var(--ease-smooth);
+    }
+    .workflow-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-card-hover); }
+    .workflow-card-icon {
+      width: 38px; height: 38px; border-radius: 9px;
+      background: rgba(0,117,222,0.08); color: var(--blue);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px; margin-bottom: 14px;
+    }
+    .workflow-card h4 {
+      font-size: 15px; font-weight: 600; color: var(--near-black);
+      letter-spacing: -0.2px; margin-bottom: 8px;
+    }
+    .workflow-card p { font-size: 13.5px; color: var(--warm-gray); line-height: 1.6; }
+    .workflow-pull {
+      display: flex; align-items: center; gap: 10px; margin-top: 28px; padding: 14px 18px;
+      background: var(--bg-subtle); border: 1px solid var(--border); border-radius: 10px;
+      font-size: 13.5px; color: var(--warm-black);
+    }
+    .workflow-pull strong { color: var(--near-black); font-weight: 600; }
+
     /* ─── PAGE LOAD OVERLAY ─── */
     #page-loader {
       position: fixed; inset: 0; background: var(--bg); z-index: 99999;
@@ -800,6 +871,7 @@
         <a href="#dashboards" style="transition-delay:0.15s">Dashboards</a>
         <a href="#sql"        style="transition-delay:0.22s">SQL</a>
         <a href="#queryu"     style="transition-delay:0.24s">Query-U</a>
+        <a href="#workflow"   style="transition-delay:0.25s">Workflow</a>
         <a href="#skills"     style="transition-delay:0.26s">Skills</a>
         <a href="#contact"    style="transition-delay:0.29s">Contact</a>
         <a href="Resume_Davenee_James.pdf" target="_blank" style="transition-delay:0.36s">Resume</a>
@@ -817,6 +889,7 @@
             Data Analyst &amp; BI Developer with 3+ years in higher education institutional research.
             I specialize in PostgreSQL, Power BI, and IPEDS compliance reporting — translating complex
             enterprise data into executive-ready dashboards that drive real decisions.
+            Every query version-controlled in GitHub, every workflow AI-augmented with Claude — FERPA-safe by design.
           </p>
           <div class="hero-actions" id="hero-actions">
             <a href="#dashboards" class="btn btn-primary">Explore Dashboards</a>
@@ -1273,6 +1346,68 @@ ranked_data <span class="keyword">AS</span> (
   </section>
 
   <!-- ═══════════════════════════════════════════════════
+       AI-AUGMENTED WORKFLOW
+  ════════════════════════════════════════════════════ -->
+  <section class="section workflow-section" id="workflow">
+    <div class="container">
+      <div class="workflow-top reveal">
+        <div>
+          <div class="workflow-tag">How I Work in 2026</div>
+          <h2 class="workflow-heading">INSTITUTIONAL MEMORY,<br/><em>version-controlled.</em></h2>
+          <p class="workflow-body">
+            Every SQL query, IPEDS submission, and dashboard definition lives in a private GitHub repo —
+            paired with Claude as a FERPA-safe analyst. Claude sees the <strong>schema</strong>, never the rows.
+            Each query is reviewed, committed, and reusable next year, next analyst, next audit.
+          </p>
+        </div>
+        <div class="workflow-terminal">
+          <div class="workflow-terminal-header">
+            <span class="queryu-editor-dot r"></span>
+            <span class="queryu-editor-dot y"></span>
+            <span class="queryu-editor-dot g"></span>
+            <span class="workflow-terminal-title">ir-warehouse · git log</span>
+          </div>
+<pre><span class="sha">a3f1c20</span> <span class="branch">(main)</span> Add FTIC fall-to-fall retention CTE
+<span class="sha">8b2e4d9</span> Refactor IPEDS race/ethnicity rollup view
+<span class="sha">1c9a07f</span> Document headcount vs. FTE definitions
+<span class="dim">───────────────────────────────────────────</span>
+<span class="added">+ schema/students.sql</span>      <span class="dim">(columns only)</span>
+<span class="added">+ queries/retention.sql</span>    <span class="dim">claude-paired</span>
+<span class="added">+ docs/decisions.md</span>        <span class="dim">why, not what</span></pre>
+        </div>
+      </div>
+
+      <div class="workflow-grid reveal">
+        <div class="workflow-card">
+          <div class="workflow-card-icon">🔒</div>
+          <h4>FERPA-Safe AI Pairing</h4>
+          <p>Claude reviews table and column names — never student rows. Sensitive data stays inside the warehouse; the schema travels to the model.</p>
+        </div>
+        <div class="workflow-card">
+          <div class="workflow-card-icon">🌿</div>
+          <h4>Version-Controlled SQL</h4>
+          <p>Every query lives in Git. Branches for experiments, PRs for review, history for audits. Nothing is a one-off in a notebook again.</p>
+        </div>
+        <div class="workflow-card">
+          <div class="workflow-card-icon">🧠</div>
+          <h4>Institutional Memory</h4>
+          <p>Metric definitions, edge cases, and "why we did it this way" captured in markdown next to the code. The next analyst onboards in days, not months.</p>
+        </div>
+        <div class="workflow-card">
+          <div class="workflow-card-icon">🔁</div>
+          <h4>Reproducible Reporting</h4>
+          <p>IPEDS submissions and exec dashboards trace back to a commit SHA. Re-run last year's numbers exactly. Defend every figure.</p>
+        </div>
+      </div>
+
+      <div class="workflow-pull reveal">
+        <span style="font-size:18px">💡</span>
+        <span><strong>The result:</strong> faster turnarounds, fewer "where did this number come from?" emails, and a knowledge base that compounds instead of evaporating.</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════
        SKILLS & TOOLS MATRIX
   ════════════════════════════════════════════════════ -->
   <section class="section skills-section" id="skills">
@@ -1352,8 +1487,12 @@ ranked_data <span class="keyword">AS</span> (
               <div class="skill-bar"><div class="skill-fill" data-width="72"></div></div>
             </div>
             <div class="skill-row">
-              <div class="skill-meta"><span class="skill-name">GitHub Version Control</span><span class="skill-level">Proficient</span></div>
-              <div class="skill-bar"><div class="skill-fill" data-width="75"></div></div>
+              <div class="skill-meta"><span class="skill-name">Git &amp; GitHub (branching, PRs, code review)</span><span class="skill-level">Advanced</span></div>
+              <div class="skill-bar"><div class="skill-fill" data-width="88"></div></div>
+            </div>
+            <div class="skill-row">
+              <div class="skill-meta"><span class="skill-name">Claude / AI-Pair Analytics</span><span class="skill-level">Advanced</span></div>
+              <div class="skill-bar"><div class="skill-fill" data-width="90"></div></div>
             </div>
           </div>
         </div>
@@ -1396,6 +1535,11 @@ ranked_data <span class="keyword">AS</span> (
               <span class="specialty-badge-icon">🏛️</span>
               <span class="specialty-badge-name">Data Governance</span>
               <span class="specialty-badge-desc">Naming standards, metric definitions, documentation, lineage &amp; data quality</span>
+            </div>
+            <div class="specialty-badge">
+              <span class="specialty-badge-icon">🤖</span>
+              <span class="specialty-badge-name">AI-Augmented Analytics</span>
+              <span class="specialty-badge-desc">Claude-paired SQL development with FERPA-safe schema-only context &amp; Git-versioned queries</span>
             </div>
             <div class="specialty-badge">
               <span class="specialty-badge-icon">🏆</span>
