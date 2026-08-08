@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Alumni Survey</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 2rem;
+      background-color: #f5f5f5;
+    }
+    h1 {
+      text-align: center;
+    }
+    form {
+      max-width: 400px;
+      margin: 1rem auto;
+      padding: 1rem;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    label {
+      display: block;
+      margin-top: 1rem;
+    }
+    input[type="text"], input[type="number"] {
+      width: 100%;
+      padding: 0.5rem;
+      margin-top: 0.25rem;
+    }
+    button {
+      margin-top: 1rem;
+      padding: 0.5rem 1rem;
+    }
+    #survey {
+      display: none;
+    }
+    .example {
+      font-size: 0.9rem;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+  <h1>Alumni Information Survey</h1>
+
+  <form id="lookupForm">
+    <h2>Find Your Record</h2>
+    <label for="studentId">Student ID</label>
+    <input type="text" id="studentId" placeholder="Enter your student ID" />
+
+    <label for="fullName">Full Name</label>
+    <input type="text" id="fullName" placeholder="John Smith" />
+    <div class="example">Example: John Smith</div>
+
+    <button type="submit">Continue</button>
+  </form>
+
+  <div id="survey">
+    <h2>Alumni Questions</h2>
+    <form id="surveyForm">
+      <label>Current Occupation
+        <input type="text" name="occupation" required />
+      </label>
+      <label>Graduation Year
+        <input type="number" name="gradYear" required />
+      </label>
+      <button type="submit">Submit Survey</button>
+    </form>
+  </div>
+
+  <script>
+    const records = [
+      { id: '1001', firstName: 'John', lastName: 'Doe' },
+      { id: '1002', firstName: 'Jane', lastName: 'Smith' },
+      { id: '1003', firstName: 'Alice', lastName: 'Johnson' }
+    ];
+
+    const lookupForm = document.getElementById('lookupForm');
+    const surveySection = document.getElementById('survey');
+    const surveyForm = document.getElementById('surveyForm');
+
+    lookupForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const idValue = document.getElementById('studentId').value.trim();
+      const nameValue = document.getElementById('fullName').value.trim();
+
+      if (idValue) {
+        const rec = records.find(r => r.id === idValue);
+        if (rec) {
+          const ok = confirm(`Is your name ${rec.firstName} ${rec.lastName}?`);
+          if (ok) {
+            showSurvey();
+          } else {
+            alert('Please try again.');
+            lookupForm.reset();
+          }
+        } else {
+          alert('Student ID not found.');
+          lookupForm.reset();
+        }
+      } else if (nameValue) {
+        const [first, last] = nameValue.split(' ');
+        const rec = records.find(r =>
+          r.firstName.toLowerCase() === (first || '').toLowerCase() &&
+          r.lastName.toLowerCase() === (last || '').toLowerCase()
+        );
+        if (rec) {
+          alert(`Match found! Your Student ID is ${rec.id}.`);
+          showSurvey();
+        } else {
+          alert('No matching record found.');
+          lookupForm.reset();
+        }
+      } else {
+        alert('Please enter a Student ID or Full Name.');
+      }
+    });
+
+    surveyForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      alert('Thank you for completing the survey!');
+      surveyForm.reset();
+    });
+
+    function showSurvey() {
+      document.getElementById('lookupForm').style.display = 'none';
+      surveySection.style.display = 'block';
+    }
+  </script>
+</body>
+</html>
